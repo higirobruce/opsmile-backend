@@ -15,7 +15,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    MongooseModule.forRoot('mongodb+srv://mongo-admin:2tij6e0anAgKU6tb@myfreecluster.kxvgw.mongodb.net/eproc?retryWrites=true&w=majority&appName=MyFreeCluster'),
+    MongooseModule.forRoot(process.env.MONGODB_CONNECTION_STRING),
     
     PatientsModule, UsersModule, MedicalAssessmentModule, AnesthesiaModule, AuthModule, VitalSignsModule],
   controllers: [AppController],
