@@ -15,7 +15,6 @@ export class VitalSignsService {
   ) {}
 
   async create(createVitalSignDto: CreateVitalSignDto): Promise<VitalSign> {
-    console.log('Received createVitalSignDto:', createVitalSignDto);
     const patient = await this.patientsService.findOne(createVitalSignDto.patientId);
     const nurse = await this.usersService.findOne(createVitalSignDto.nurseId);
 

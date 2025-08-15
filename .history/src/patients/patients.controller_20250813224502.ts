@@ -18,14 +18,7 @@ export class PatientsController {
   }
 
   @Get('search')
-/*************  ✨ Windsurf Command ⭐  *************/
-  /**
-   * Get a patient by ID
-   * @param id The ID of the patient
-   * @returns The patient with the given ID
-   * @throws {HttpException} If no patient with the given ID exists
-   */
-/*******  61a384fb-e2fe-4f4a-b789-7eea04614ff9  *******/  findOneByPhoneNumberOrName(@Query('search') search: string) {
+  findOneByPhoneNumberOrName(@Query('search') search: string) {
     return this.patientsService.findOneByPhoneNumberOrName(search);
   }
 

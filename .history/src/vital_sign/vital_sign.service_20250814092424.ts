@@ -19,6 +19,10 @@ export class VitalSignsService {
     const patient = await this.patientsService.findOne(createVitalSignDto.patientId);
     const nurse = await this.usersService.findOne(createVitalSignDto.nurseId);
 
+    console.log('Creating vital sign for patient:', patient);
+    console.log('Nurse handling the vital sign:', nurse);
+
+
     const bmi = this.calculateBMI(createVitalSignDto.weight, createVitalSignDto.height);
 
     const createdVitalSign = new this.vitalSignModel({

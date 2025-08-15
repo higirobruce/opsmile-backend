@@ -2,9 +2,8 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { LoginDto } from './dto/login.dto';
-import { RegisterDto } from './dto/register.dto';
 import * as bcrypt from 'bcrypt';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { CreateUserDto } from '../users/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -20,11 +19,11 @@ export class AuthService {
       password: hashedPassword,
     });
     
-    const payload = { sub: user.id, email: user.email };
+    const payload = { sub: user._id, email: user.email };
     return {
       access_token: this.jwtService.sign(payload),
       user: {
-        id: user.id,
+        id: user._id,
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
@@ -43,11 +42,11 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const payload = { sub: user.id, email: user.email };
+    const payload = { sub: user._id, email: user.email };
     return {
       access_token: this.jwtService.sign(payload),
       user: {
-        id: user.id,
+        id: user._id,
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,

@@ -1,4 +1,4 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { CreateVitalSignDto } from './create-vital_sign.dto';
+import { VitalSignBaseDto } from './vital-sign-base.dto';
 
-export class UpdateVitalSignDto extends PartialType(CreateVitalSignDto) {}
+export class UpdateVitalSignDto extends PartialType(VitalSignBaseDto) {}

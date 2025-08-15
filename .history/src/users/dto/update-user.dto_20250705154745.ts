@@ -1,6 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateUserDto } from './create-user.dto';
-import { UserRole } from '../schemas/user.schema';
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
     username?: string
@@ -8,6 +7,7 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
     email?: string
     firstName?: string
     lastName?: string
-    role?: UserRole
+    role?: 'admin' | 'user' | 'superadmin' | 'registration-clerk' | 'nurse' | 'physician'
+        | 'surgeon' | 'anesthetist' | 'lab-technician' | 'discharge-coordinator' | 'follow-up-nurse'
+        | 'pharmacist' | 'auditor' | 'patient'
 }
-

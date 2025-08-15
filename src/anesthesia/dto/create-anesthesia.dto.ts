@@ -1,6 +1,6 @@
-import { IsEnum, IsString, IsUUID, IsBoolean, IsOptional, IsArray, ValidateNested } from 'class-validator';
-import { ASAScore, AnesthesiaType, ConsentFile, Decision } from '../entities/anesthesia.entity';
+import { IsMongoId, IsEnum, IsString, IsBoolean, IsOptional, IsArray, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
+import { ASAScore, AnesthesiaType, Decision } from '../schemas/anesthesia.schema';
 
 class ConsentFileDto {
   @IsString()
@@ -9,14 +9,20 @@ class ConsentFileDto {
   @IsString()
   base64Url: string;
 }
+
 export class CreateAnesthesiaDto {
-  @IsUUID()
+  @IsMongoId()
   patientId: string;
 
+  @IsBoolean()
+  hasPastAnestheticHistory: boolean;
 
   @IsString()
   @IsOptional()
   pastAnestheticNotes?: string;
+
+  @IsBoolean()
+  hasKnownComplications: boolean;
 
   @IsString()
   @IsOptional()
@@ -37,8 +43,8 @@ export class CreateAnesthesiaDto {
   consentFileUrl: ConsentFileDto[];
 
   @IsEnum(Decision)
-  decision: Decision;
+  surgical_decision: Decision;
 
-  @IsString()
-  reviewedBy: string;
+  @IsMongoId()
+  doneById: string;
 }

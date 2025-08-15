@@ -1,69 +1,67 @@
-import { Injectable } from '@nestjs/common';
-import * as bcrypt from 'bcrypt'
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { User } from './entities/user.entity';
+// filepath: /Users/brucehigiro/Documents/development/cleft/backend/cleft-backend/src/users/users.service.ts
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { User, UserDocument } from './schemas/user.schema';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    @InjectModel(User.name) private userModel: Model<UserDocument>
   ) {}
 
-  async create(dto: CreateUserDto) {
-    const hash = await bcrypt.hash(dto.password, 12);
-    const user = await this.userRepository.save({
-      id: undefined,
-      username: dto.username,
-      email: dto.email,
-      password: hash,
-      firstName: dto.firstName,
-      lastName: dto.lastName,
-      role: dto.role
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const createdUser = new this.userModel(createUserDto);
+    const savedUser = await createdUser.save();
+    const userObject = savedUser.toObject();
+    delete userObject.password;
+    return userObject;
+  }
+
+  async findAll(): Promise<User[]> {
+    const users = await this.userModel.find().exec();
+    return users.map(user => {
+      const userObject = user.toObject();
+      delete userObject.password;
+      return userObject;
     });
-    delete user.password;
-    return user;
   }
 
-  findAll() {
-    return this.userRepository.find();
-  }
-
-  async findOne(id: string) {
-    const user = await this.userRepository.findOne({ where: { id } });
+  async findOne(id: string): Promise<User> {
+    const user = await this.userModel.findById(id).exec();
     if (!user) {
-      throw new Error('User not found');
+      throw new NotFoundException(`User with ID ${id} not found`);
     }
-    delete user.password;
-    return user;
+    const userObject = user.toObject();
+    delete userObject.password;
+    return userObject;
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto) {
-    const user = await this.userRepository.findOne({ where: { id } });
-    if (!user) {
-      throw new Error('User not found');
-    }
-    const updatedUser = await this.userRepository.save({
-      ...user,
-      ...updateUserDto,
-    });
-    delete updatedUser.password;
-    return updatedUser;
+  async findByEmail(email: string): Promise<User> {
+    return this.userModel.findOne({ email }).exec();
   }
 
-  async remove(id: string) {
-    const user = await this.userRepository.findOne({ where: { id } });
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    const user = await this.userModel
+      .findByIdAndUpdate(id, updateUserDto, { new: true })
+      .exec();
+    
     if (!user) {
-      throw new Error('User not found');
+      throw new NotFoundException(`User with ID ${id} not found`);
     }
-    await this.userRepository.remove(user);
+
+    const userObject = user.toObject();
+    delete userObject.password;
+    return userObject;
+  }
+
+  async remove(id: string): Promise<{ message: string }> {
+    const result = await this.userModel.findByIdAndDelete(id).exec();
+    if (!result) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
     return { message: 'User deleted successfully' };
-  }
-
-  async findByEmail(email: string): Promise<User | null> {
-    return this.userRepository.findOne({ where: { email } });
   }
 }

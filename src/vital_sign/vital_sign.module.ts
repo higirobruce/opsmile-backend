@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { MongooseModule } from '@nestjs/mongoose';
+import { VitalSignsService } from './vital_sign.service';
+import { VitalSignsController } from './vital_sign.controller';
+import { VitalSign, VitalSignSchema } from './schemas/vital_sign.schema';
 import { PatientsModule } from '../patients/patients.module';
 import { UsersModule } from '../users/users.module';
-import { VitalSign } from './entities/vital_sign.entity';
-import { VitalSignsController } from './vital_sign.controller';
-import { VitalSignsService } from './vital_sign.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([VitalSign]),
+    MongooseModule.forFeature([{ name: VitalSign.name, schema: VitalSignSchema }]),
     PatientsModule,
     UsersModule,
   ],

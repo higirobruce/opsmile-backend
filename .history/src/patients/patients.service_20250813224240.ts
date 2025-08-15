@@ -31,7 +31,6 @@ export class PatientsService {
       .populate('medical_assessments')
       .exec();
 
-      console.log('Found patient:', patient);
     if (!patient) {
       throw new NotFoundException(`Patient with ID ${id} not found`);
     }

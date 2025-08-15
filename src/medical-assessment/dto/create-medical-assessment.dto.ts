@@ -1,11 +1,8 @@
-import { IsArray, IsEnum, IsString, IsUUID } from 'class-validator';
-import { SurgicalDecision } from '../entities/medical-assessment.entity';
-import { ManyToOne } from 'typeorm';
-import { Patient } from 'src/patients/entities/patient.entity';
+import { IsMongoId, IsString, IsEnum, IsArray } from 'class-validator';
+import { SurgicalDecision } from '../schemas/medical-assessment.schema';
 
 export class CreateMedicalAssessmentDto {
-  @ManyToOne(() => Patient, (patient) => patient.medical_assessments)
-  @IsUUID()
+  @IsMongoId()
   patientId: string;
 
   @IsString()
@@ -24,15 +21,14 @@ export class CreateMedicalAssessmentDto {
   allergies: string[];
 
   @IsString()
-  provisional_diagnosis: string[];
+  provisional_diagnosis: string;
 
-  @IsArray()
-  @IsString({ each: true })
+  @IsString()
   clinical_notes: string;
 
   @IsEnum(SurgicalDecision)
   surgical_decision: SurgicalDecision;
 
-  @IsUUID()
+  @IsMongoId()
   doneById: string;
 }

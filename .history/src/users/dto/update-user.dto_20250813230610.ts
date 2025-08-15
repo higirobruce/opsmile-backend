@@ -10,4 +10,3 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
     lastName?: string
     role?: UserRole
 }
-
