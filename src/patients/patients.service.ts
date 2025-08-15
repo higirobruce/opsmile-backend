@@ -8,7 +8,7 @@ import { UpdatePatientDto } from './dto/update-patient.dto';
 @Injectable()
 export class PatientsService {
   constructor(
-    @InjectModel(Patient.name) private patientModel: Model<PatientDocument>
+    @InjectModel(Patient.name) private patientModel: Model<PatientDocument>,
   ) {}
 
   async create(createPatientDto: CreatePatientDto): Promise<Patient> {
@@ -19,8 +19,25 @@ export class PatientsService {
   async findAll(): Promise<Patient[]> {
     return this.patientModel
       .find()
-      .populate('vital_signs')
-      .populate('medical_assessments')
+      .populate({
+        path: 'vital_signs',
+        populate: {
+          path: 'patient'
+        },
+      })
+      .populate({
+        path: 'medical_assessments',
+        populate: {
+          path: 'patient'
+        },
+      })
+      .populate({
+        path: 'anesthesia_records',
+        populate: {
+          path: 'patient'
+        },
+      })
+      .lean()
       .exec();
   }
 
@@ -29,9 +46,9 @@ export class PatientsService {
       .findById(id)
       .populate('vital_signs')
       .populate('medical_assessments')
+      .populate('anesthesia_records')
       .exec();
 
-      console.log('Found patient:', patient);
     if (!patient) {
       throw new NotFoundException(`Patient with ID ${id} not found`);
     }
@@ -44,8 +61,8 @@ export class PatientsService {
         $or: [
           { firstName: new RegExp(search, 'i') },
           { lastName: new RegExp(search, 'i') },
-          { phoneNumber: new RegExp(search, 'i') }
-        ]
+          { phoneNumber: new RegExp(search, 'i') },
+        ],
       })
       .populate('vital_signs')
       .populate('medical_assessments')
@@ -54,7 +71,10 @@ export class PatientsService {
     return patients;
   }
 
-  async update(id: string, updatePatientDto: UpdatePatientDto): Promise<Patient> {
+  async update(
+    id: string,
+    updatePatientDto: UpdatePatientDto,
+  ): Promise<Patient> {
     const updatedPatient = await this.patientModel
       .findByIdAndUpdate(id, updatePatientDto, { new: true })
       .exec();

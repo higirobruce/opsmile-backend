@@ -15,8 +15,7 @@ export class AuthService {
   async register(registerDto: CreateUserDto) {
     const hashedPassword = await bcrypt.hash(registerDto.password, 10);
     const user = await this.usersService.create({
-      ...registerDto,
-      password: hashedPassword,
+      ...registerDto
     });
     
     const payload = { sub: user._id, email: user.email };
@@ -36,6 +35,7 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException('Email not found!');
     }
+    console.log('User found:', user);
 
     const isPasswordValid = await bcrypt.compare(loginDto.password, user.password);
     if (!isPasswordValid) {

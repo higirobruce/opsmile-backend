@@ -34,8 +34,9 @@ export class MedicalAssessment {
   @Prop([String])
   allergies: string[];
 
+  @Prop([String])
   @Prop({ required: true })
-  provisional_diagnosis: string;
+  provisional_diagnosis: string[];
 
   @Prop({ required: true })
   clinical_notes: string;

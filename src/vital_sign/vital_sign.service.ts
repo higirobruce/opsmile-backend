@@ -35,16 +35,27 @@ export class VitalSignsService {
   async findAll(): Promise<VitalSign[]> {
     return this.vitalSignModel
       .find()
-      .populate('patient')
-      .populate('nurse')
+     .populate({
+        path: 'vital_signs',
+        populate: {
+          path: 'nurse'
+        }
+      })
+      .populate('medical_assessments')
       .exec();
   }
 
   async findOne(id: string): Promise<VitalSign> {
     const vitalSign = await this.vitalSignModel
       .findById(id)
-      .populate('patient')
-      .populate('nurse')
+       .populate({
+        path: 'vital_signs',
+        populate: {
+          path: 'nurse',
+          select: 'firstName lastName'
+        }
+      })
+      .populate('medical_assessments')
       .exec();
 
     if (!vitalSign) {
