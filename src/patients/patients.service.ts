@@ -31,6 +31,7 @@ export class PatientsService {
       .populate('vital_signs')
       .populate('medical_assessments')
       .populate('anesthesia_records')
+      .populate('surgeries')
       .exec();
 
     if (!patient) {

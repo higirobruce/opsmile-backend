@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { VitalSignsModule } from './vital_sign/vital_sign.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { SurgeryRecordModule } from './surgery_record/surgery_record.module';
 
 @Module({
   imports: [
@@ -16,9 +17,15 @@ import { MongooseModule } from '@nestjs/mongoose';
       isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.MONGODB_CONNECTION_STRING),
-    
-    PatientsModule, UsersModule, MedicalAssessmentModule, AnesthesiaModule, AuthModule, VitalSignsModule],
+    PatientsModule,
+    UsersModule,
+    MedicalAssessmentModule,
+    AnesthesiaModule,
+    AuthModule,
+    VitalSignsModule,
+    SurgeryRecordModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

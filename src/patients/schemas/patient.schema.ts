@@ -61,5 +61,11 @@ PatientSchema.virtual('anesthesia_records', {
   justOne: false
 });
 
+PatientSchema.virtual('surgeries', {
+  ref: 'SurgeryRecord',
+  localField: '_id',
+  foreignField: 'patient',
+  justOne: false
+});
 // Add compound index for search optimization
 PatientSchema.index({ firstName: 'text', lastName: 'text', phoneNumber: 'text' });

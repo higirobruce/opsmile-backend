@@ -7,7 +7,13 @@ export type UserDocument = User & Document;
 export enum UserRole {
   ADMIN = 'admin',
   DOCTOR = 'doctor',
-  NURSE = 'nurse'
+  NURSE = 'nurse',
+  ANESTHESIOLOGIST = 'anesthesiologist',
+  SURGEON = 'surgeon',
+  RECEPTIONIST = 'receptionist',
+  PHARMACIST = 'pharmacist',
+  LAB_TECHNICIAN = 'lab_technician',
+  OTHER = 'other',
 }
 
 @Schema({ timestamps: true })
