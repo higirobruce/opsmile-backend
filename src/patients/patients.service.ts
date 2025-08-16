@@ -19,25 +19,9 @@ export class PatientsService {
   async findAll(): Promise<Patient[]> {
     return this.patientModel
       .find()
-      .populate({
-        path: 'vital_signs',
-        populate: {
-          path: 'patient'
-        },
-      })
-      .populate({
-        path: 'medical_assessments',
-        populate: {
-          path: 'patient'
-        },
-      })
-      .populate({
-        path: 'anesthesia_records',
-        populate: {
-          path: 'patient'
-        },
-      })
-      .lean()
+       .populate('vital_signs')
+      .populate('medical_assessments')
+      .populate('anesthesia_records')
       .exec();
   }
 
