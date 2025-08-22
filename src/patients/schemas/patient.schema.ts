@@ -29,10 +29,25 @@ export class Patient {
   address: string;
 
   @Prop()
-  guardian: string;
+  nid: string;
 
   @Prop()
-  guardianContact: string;
+  guardianFirstName?: string;
+
+  @Prop()
+  guardianLastName?: string;
+
+  @Prop()
+  guardianPhoneNumber?: string;
+
+  @Prop()
+  guardianNID?: string;
+
+  @Prop()
+  guardianRelationship?: string;
+
+  @Prop()
+  guardianDateOfBirth: Date;
 }
 
 export const PatientSchema = SchemaFactory.createForClass(Patient);

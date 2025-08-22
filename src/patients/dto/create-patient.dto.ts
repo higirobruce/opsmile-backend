@@ -27,9 +27,30 @@ export class CreatePatientDto {
 
   @IsString()
   @IsOptional()
-  guardian?: string;
+  nid?: string;
 
   @IsString()
   @IsOptional()
-  guardianContact?: string;
+  guardianFirstName?: string;
+
+  @IsString()
+  @IsOptional()
+  guardianLastName?: string;
+
+  @IsString()
+  @IsOptional()
+  guardianPhoneNumber?: string;
+
+  @IsString()
+  @IsOptional()
+  guardianNID?: string;
+
+  @IsString()
+  @IsOptional()
+  guardianRelationship?: string;
+
+  @IsDate()
+  @IsOptional()
+  @Type(() => Date)
+  guardianDateOfBirth?: Date;
 }
