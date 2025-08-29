@@ -54,7 +54,7 @@ export class MedicalAssessmentService {
       .find({ patient: patientId })
       .populate('patient')
       .populate('doneBy')
-      .sort({ assessment_date: -1 })
+      .sort({ assessmentDate: -1 })
       .exec();
   }
 }
