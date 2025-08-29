@@ -16,21 +16,29 @@ export type MedicalAssessmentDocument = MedicalAssessment & Document;
 export class MedicalAssessment {
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Patient', required: true })
   patient: Patient;
+  
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
   doneBy: User;
+  
   @Prop({ default: Date.now })
   assessmentDate: Date;
-  @Prop([String])
-  pastMedicalHistory: string[];
-  @Prop([String])
+  
+  @Prop(String)
+  pastMedicalHistory: string;
+  
+  @Prop(String)
   @Prop({ required: true })
-  diagnosis: string[];
+  diagnosis: string;
+  
   @Prop({ type: [Object] })
   uploadedFiles: ConsentFile[];
+  
   @Prop({ type: [Object] })
   uploadedPhotos: ConsentFile[];
+  
   @Prop({ type: Boolean })
   clearedForSurgery: boolean;
+  
   @Prop({ type: String })
   reasonForCancellation: string
 }
