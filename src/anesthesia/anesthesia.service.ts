@@ -5,6 +5,7 @@ import { Anesthesia, AnesthesiaDocument } from './schemas/anesthesia.schema';
 import { CreateAnesthesiaDto } from './dto/create-anesthesia.dto';
 import { PatientsService } from '../patients/patients.service';
 import { UsersService } from '../users/users.service';
+import { ActivityLogService } from 'src/activity-log/activity-log.service';
 
 @Injectable()
 export class AnesthesiaService {
@@ -12,6 +13,7 @@ export class AnesthesiaService {
     @InjectModel(Anesthesia.name) private anesthesiaModel: Model<AnesthesiaDocument>,
     private patientsService: PatientsService,
     private usersService: UsersService,
+    private activityLogService: ActivityLogService,
   ) {}
 
   async create(createAnesthesiaDto: CreateAnesthesiaDto): Promise<Anesthesia> {

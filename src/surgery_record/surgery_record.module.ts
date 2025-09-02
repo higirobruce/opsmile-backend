@@ -6,6 +6,7 @@ import { SurgeryRecord } from './entities/surgery_record.entity';
 import { PatientsModule } from 'src/patients/patients.module';
 import { UsersModule } from 'src/users/users.module';
 import { SurgeryRecordSchema } from './schemas/surgery_record.schema';
+import { ActivityLogModule } from 'src/activity-log/activity-log.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { SurgeryRecordSchema } from './schemas/surgery_record.schema';
     ]),
     PatientsModule,
     UsersModule,
+    ActivityLogModule
   ],
   controllers: [SurgeryRecordController],
   providers: [SurgeryRecordService],

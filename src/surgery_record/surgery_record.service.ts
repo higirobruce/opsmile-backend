@@ -5,6 +5,7 @@ import { CreateSurgeryRecordDto } from './dto/create-surgery_record.dto';
 import { PatientsService } from '../patients/patients.service';
 import { UsersService } from '../users/users.service';
 import { SurgeryRecord, SurgeryRecordDocument } from './schemas/surgery_record.schema';
+import { ActivityLogService } from 'src/activity-log/activity-log.service';
 
 @Injectable()
 export class SurgeryRecordService {
@@ -12,6 +13,7 @@ export class SurgeryRecordService {
     @InjectModel(SurgeryRecord.name) private surgeryRecordModel: Model<SurgeryRecordDocument>,
     private patientsService: PatientsService,
     private usersService: UsersService,
+    private activityLogService: ActivityLogService,
   ) {}
 
   async create(createSurgeryDto: CreateSurgeryRecordDto): Promise<SurgeryRecord> {
@@ -24,6 +26,16 @@ export class SurgeryRecordService {
       patient: patient._id,
       surgeon: surgeon._id,
       anesthesiologist: anesthesiologist._id,
+    });
+
+    await this.activityLogService.create({
+      patient: patient._id,
+      action: 'Surgery record taken',
+      details: {
+        surgeryId: surgery._id,
+        surgeonId: surgeon._id,
+        anesthesiologistId: anesthesiologist._id,
+      }
     });
 
     return surgery.save();

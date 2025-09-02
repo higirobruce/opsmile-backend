@@ -5,6 +5,7 @@ import { AnesthesiaController } from './anesthesia.controller';
 import { Anesthesia, AnesthesiaSchema } from './schemas/anesthesia.schema';
 import { PatientsModule } from '../patients/patients.module';
 import { UsersModule } from '../users/users.module';
+import { ActivityLogModule } from 'src/activity-log/activity-log.module';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { UsersModule } from '../users/users.module';
       { name: Anesthesia.name, schema: AnesthesiaSchema }
     ]),
     PatientsModule,
-    UsersModule
+    UsersModule,
+    ActivityLogModule
   ],
   controllers: [AnesthesiaController],
   providers: [AnesthesiaService],

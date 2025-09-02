@@ -6,6 +6,7 @@ import { PatientsModule } from '../patients/patients.module';
 import { UsersModule } from '../users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MedicalAssessmentSchema } from './schemas/medical-assessment.schema';
+import { ActivityLogModule } from 'src/activity-log/activity-log.module';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { MedicalAssessmentSchema } from './schemas/medical-assessment.schema';
       { name: MedicalAssessment.name, schema: MedicalAssessmentSchema }
     ]),
     PatientsModule,
-    UsersModule
+    UsersModule,
+    ActivityLogModule
   ],
   controllers: [MedicalAssessmentController],
   providers: [MedicalAssessmentService],

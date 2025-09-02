@@ -5,6 +5,7 @@ import { PatientsService } from '../patients/patients.service';
 import { UsersService } from '../users/users.service';
 import { VitalSign, VitalSignDocument } from './schemas/vital_sign.schema';
 import { CreateVitalSignDto } from './dto/create-vital_sign.dto';
+import { ActivityLogService } from 'src/activity-log/activity-log.service';
 
 @Injectable()
 export class VitalSignsService {
@@ -12,10 +13,10 @@ export class VitalSignsService {
     @InjectModel(VitalSign.name) private vitalSignModel: Model<VitalSignDocument>,
     private patientsService: PatientsService,
     private usersService: UsersService,
+    private activityLogService: ActivityLogService,
   ) {}
 
   async create(createVitalSignDto: CreateVitalSignDto): Promise<VitalSign> {
-    console.log('Received createVitalSignDto:', createVitalSignDto);
     const patient = await this.patientsService.findOne(createVitalSignDto.patientId);
     const nurse = await this.usersService.findOne(createVitalSignDto.nurseId);
 
@@ -27,6 +28,20 @@ export class VitalSignsService {
       nurse: nurse._id,
       bmi,
       assessmentDateTime: new Date(),
+    });
+
+    await this.activityLogService.create({
+      patient: patient._id,
+      action: 'Vital signs taken',
+      details: {
+        vitalSignId: createdVitalSign._id,
+        nurseId: nurse._id,
+        measurements: {
+          weight: createVitalSignDto.weight,
+          height: createVitalSignDto.height,
+          bmi
+        }
+      }
     });
 
     return createdVitalSign.save();

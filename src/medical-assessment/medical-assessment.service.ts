@@ -5,6 +5,7 @@ import { MedicalAssessment, MedicalAssessmentDocument } from './schemas/medical-
 import { CreateMedicalAssessmentDto } from './dto/create-medical-assessment.dto';
 import { PatientsService } from '../patients/patients.service';
 import { UsersService } from '../users/users.service';
+import { ActivityLogService } from 'src/activity-log/activity-log.service';
 
 @Injectable()
 export class MedicalAssessmentService {
@@ -12,7 +13,8 @@ export class MedicalAssessmentService {
     @InjectModel(MedicalAssessment.name) private medicalAssessmentModel: Model<MedicalAssessmentDocument>,
     private patientsService: PatientsService,
     private usersService: UsersService,
-  ) {}
+    private activityLogService: ActivityLogService,
+  ) { }
 
   async create(createMedicalAssessmentDto: CreateMedicalAssessmentDto): Promise<MedicalAssessment> {
     const patient = await this.patientsService.findOne(createMedicalAssessmentDto.patientId);
@@ -23,6 +25,17 @@ export class MedicalAssessmentService {
       patient: patient._id,
       doneBy: user._id,
     });
+
+    await this.activityLogService.create({
+      patient: patient._id,
+      action: 'Medical assessment done',
+      details: {
+        vitalSignId: assessment._id,
+        userId: user._id,
+        assessment
+      }
+    });
+
 
     return assessment.save();
   }

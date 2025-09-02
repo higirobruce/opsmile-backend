@@ -10,6 +10,7 @@ import { ConfigModule } from '@nestjs/config';
 import { VitalSignsModule } from './vital_sign/vital_sign.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SurgeryRecordModule } from './surgery_record/surgery_record.module';
+import { ActivityLogModule } from './activity-log/activity-log.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { SurgeryRecordModule } from './surgery_record/surgery_record.module';
     AuthModule,
     VitalSignsModule,
     SurgeryRecordModule,
+    ActivityLogModule,
   ],
   controllers: [AppController],
   providers: [AppService],
