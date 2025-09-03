@@ -53,7 +53,6 @@ export class PatientsService {
       .populate('medical_assessments')
       .populate('anesthesia_records')
       .populate('surgeries')
-      .populate('activity_log')
       .exec();
 
     if (!patient) {
@@ -64,24 +63,33 @@ export class PatientsService {
 
   async findOneByPhoneNumberOrName(search: string, currentPage: number): Promise<{ patients: Patient[], totalPages: number }> {
     const pageSize = 5;
-    const query = {
+    const totalPatients = await this.patientModel.countDocuments({
       $or: [
         { firstName: new RegExp(search, 'i') },
         { lastName: new RegExp(search, 'i') },
         { phoneNumber: new RegExp(search, 'i') },
       ],
-    };
-    const totalPatients = await this.patientModel.countDocuments(query).exec();
+    }).exec();
     const totalPages = Math.ceil(totalPatients / pageSize);
+
     const patients = await this.patientModel
-      .find(query)
+      .find({
+        $or: [
+          { firstName: new RegExp(search, 'i') },
+          { lastName: new RegExp(search, 'i') },
+          { phoneNumber: new RegExp(search, 'i') },
+        ],
+      })
       .populate('vital_signs')
       .populate('medical_assessments')
       .skip((currentPage - 1) * pageSize)
       .limit(pageSize)
       .exec();
 
-    return { patients, totalPages };
+    return {
+      patients,
+      totalPages,
+    };
   }
 
   async update(
