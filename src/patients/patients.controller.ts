@@ -22,13 +22,13 @@ export class PatientsController {
   }
 
   @Get()
-  findAll() {
-    return this.patientsService.findAll();
+  findAll(@Query('page') page: number) {
+    return this.patientsService.findAll(+page);
   }
 
   @Get('search')
-  findOneByPhoneNumberOrName(@Query('search') search: string) {
-    return this.patientsService.findOneByPhoneNumberOrName(search);
+  findOneByPhoneNumberOrName(@Query('search') search: string, @Query('page') page: number) {
+    return this.patientsService.findOneByPhoneNumberOrName(search, +page);
   }
 
   @Get(':id')
