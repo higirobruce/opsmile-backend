@@ -14,36 +14,21 @@ export class CreateAnesthesiaDto {
   @IsMongoId()
   patientId: string;
 
-  @IsBoolean()
-  hasPastAnestheticHistory: boolean;
+  @IsString()
+  @IsOptional()
+  pastAnestheticHistory?: string;
 
   @IsString()
   @IsOptional()
-  pastAnestheticNotes?: string;
-
-  @IsBoolean()
-  hasKnownComplications: boolean;
-
-  @IsString()
-  @IsOptional()
-  knownComplicationsNotes?: string;
-
-  @IsEnum(ASAScore)
-  asaScore: ASAScore;
-
-  @IsEnum(AnesthesiaType)
-  anesthesiaType: AnesthesiaType;
-
-  @IsString()
-  anesthesiaPlan: string;
+  proposedPlan?: string;
 
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => ConsentFileDto)
   consentFileUrl: ConsentFileDto[];
 
-  @IsEnum(Decision)
-  surgical_decision: Decision;
+  @IsBoolean()
+  clearedForAnesthesiaBool: boolean;
 
   @IsMongoId()
   doneById: string;

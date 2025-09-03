@@ -26,6 +26,17 @@ export class AnesthesiaService {
       doneBy: user._id,
     });
 
+    await this.activityLogService.create({
+      patient: patient._id,
+      action: 'Anesthesia record created',
+      details: {
+        pastAnesteticHistory: createAnesthesiaDto.pastAnestheticHistory,
+        proposedPlan: createAnesthesiaDto.proposedPlan,
+        clearedForAnesthesiaBool: createAnesthesiaDto.clearedForAnesthesiaBool,
+        doneBy: createAnesthesiaDto.doneById,
+      }
+    });
+
     return anesthesia.save();
   }
 

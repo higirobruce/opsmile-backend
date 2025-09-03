@@ -38,44 +38,17 @@ export class Anesthesia {
   @Prop({ default: Date.now })
   dateOfReview: Date;
 
-  @Prop({ default: false })
-  hasPastAnestheticHistory: boolean;
+  @Prop()
+  pastAnesteticHistory: string;
 
   @Prop()
-  pastAnestheticNotes: string;
-
-  @Prop({ default: false })
-  hasKnownComplications: boolean;
+  proposedPlan: string;
 
   @Prop()
-  knownComplicationsNotes: string;
-
-  @Prop({ 
-    type: String,
-    enum: ASAScore,
-    required: true 
-  })
-  asaScore: ASAScore;
-
-  @Prop({ 
-    type: String,
-    enum: AnesthesiaType,
-    required: true 
-  })
-  anesthesiaType: AnesthesiaType;
-
-  @Prop({ required: true })
-  anesthesiaPlan: string;
+  clearedForAnesthesiaBool: boolean;
 
   @Prop({ type: [Object] })
   consentFileUrl: ConsentFile[];
-
-  @Prop({ 
-    type: String,
-    enum: Decision,
-    required: true 
-  })
-  surgical_decision: Decision;
 
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
   doneBy: User;
