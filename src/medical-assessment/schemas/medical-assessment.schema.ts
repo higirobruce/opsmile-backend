@@ -25,7 +25,7 @@ export interface Sample {
   status: string
 }
 
-export interface LabResult{
+export interface LabResult {
   testName: string,
   result: string,
   unit: string,
@@ -33,9 +33,14 @@ export interface LabResult{
   resultDate: Date
 }
 
+export interface LabTest {
+  name: string,
+  status: string,
+}
+
 export interface LabRequest {
   status: string;
-  tests: string[];
+  tests: LabTest[];
   samples: Sample[];
   results: LabResult[];
 }
