@@ -25,6 +25,9 @@ export class MedicalAssessment {
   
   @Prop(String)
   pastMedicalHistory: string;
+
+  @Prop([String])
+  labRequests: string[];
   
   @Prop(String)
   @Prop({ required: true })
