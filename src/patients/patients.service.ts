@@ -52,7 +52,10 @@ export class PatientsService {
       .populate('vital_signs')
       .populate('medical_assessments')
       .populate('anesthesia_records')
-      .populate('surgeries')
+      .populate({
+        path: 'surgeries',
+        populate: { path: 'surgeon' }, // 👈 populate the surgeon field inside surgeries
+      })//populate surgeon
       .exec();
 
     if (!patient) {

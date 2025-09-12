@@ -82,5 +82,6 @@ PatientSchema.virtual('surgeries', {
   foreignField: 'patient',
   justOne: false
 });
+
 // Add compound index for search optimization
 PatientSchema.index({ firstName: 'text', lastName: 'text', phoneNumber: 'text' });
