@@ -52,7 +52,7 @@ export class SurgeryRecord {
   status: SurgeryStatus;
 
   @Prop({ required: true })
-  procedurePlan: string;
+  procedure: string;
 
   @Prop([{ type: Object }])
   consentFileUrls: ImageFile[];

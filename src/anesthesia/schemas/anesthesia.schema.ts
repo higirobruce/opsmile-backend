@@ -28,6 +28,18 @@ export interface ConsentFile {
   base64Url: string;
 }
 
+export interface Medication {
+  name: string;
+  dosage: string;
+}
+
+export enum MallampatiScore {
+  I = 'I',
+  II = 'II',
+  III = 'III',
+  IV = 'IV',
+}
+
 export type AnesthesiaDocument = Anesthesia & Document;
 
 @Schema({ timestamps: true })
@@ -41,6 +53,15 @@ export class Anesthesia {
   @Prop()
   pastAnesteticHistory: string;
 
+  @Prop({ type: String, enum: AnesthesiaType })
+  anesthesiaType: AnesthesiaType;
+
+  @Prop({ type: String, enum: ASAScore })
+  asaScore: ASAScore;
+
+  @Prop({ type: String, enum: MallampatiScore })
+  mallampatiScore: MallampatiScore;
+
   @Prop()
   proposedPlan: string;
 
@@ -52,6 +73,15 @@ export class Anesthesia {
 
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
   doneBy: User;
+
+  @Prop({ type: Boolean })
+  preanesthesiaChecklistDone: boolean;
+
+  @Prop({ type: Boolean })
+  surgicalSafetyChecklistDone: boolean;
+
+  @Prop({ type: [Object] })
+  medications: Medication[];
 }
 
 export const AnesthesiaSchema = SchemaFactory.createForClass(Anesthesia);

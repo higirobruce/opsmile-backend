@@ -11,6 +11,8 @@ import { VitalSignsModule } from './vital_sign/vital_sign.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SurgeryRecordModule } from './surgery_record/surgery_record.module';
 import { ActivityLogModule } from './activity-log/activity-log.module';
+import { ProgressModule } from './progress/progress.module';
+import { DischargeModule } from './discharge/discharge.module';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { ActivityLogModule } from './activity-log/activity-log.module';
     VitalSignsModule,
     SurgeryRecordModule,
     ActivityLogModule,
+    ProgressModule,
+    DischargeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { VitalSignsService } from './vital_sign.service';
 import { CreateVitalSignDto } from './dto/create-vital_sign.dto';
+import { VitalSignsService } from './vital-signs.service';
 
 @Controller('vital_signs')
 @UseGuards(JwtAuthGuard)

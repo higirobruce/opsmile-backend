@@ -1,6 +1,6 @@
 import { IsMongoId, IsEnum, IsString, IsBoolean, IsOptional, IsArray, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
-import { ASAScore, AnesthesiaType, Decision } from '../schemas/anesthesia.schema';
+import { ASAScore, AnesthesiaType, MallampatiScore } from '../schemas/anesthesia.schema';
 
 class ConsentFileDto {
   @IsString()
@@ -10,6 +10,14 @@ class ConsentFileDto {
   base64Url: string;
 }
 
+class MedicationDto {
+  @IsString()
+  name: string;
+
+  @IsString()
+  dosage: string;
+}
+
 export class CreateAnesthesiaDto {
   @IsMongoId()
   patientId: string;
@@ -17,6 +25,18 @@ export class CreateAnesthesiaDto {
   @IsString()
   @IsOptional()
   pastAnestheticHistory?: string;
+
+  @IsEnum(AnesthesiaType)
+  @IsOptional()
+  anesthesiaType?: AnesthesiaType;
+
+  @IsEnum(ASAScore)
+  @IsOptional()
+  asaScore?: ASAScore;
+
+  @IsEnum(MallampatiScore)
+  @IsOptional()
+  mallampatiScore?: MallampatiScore;
 
   @IsString()
   @IsOptional()
@@ -32,4 +52,18 @@ export class CreateAnesthesiaDto {
 
   @IsMongoId()
   doneById: string;
+
+  @IsBoolean()
+  @IsOptional()
+  preanesthesiaChecklistDone?: boolean;
+
+  @IsBoolean()
+  @IsOptional()
+  surgicalSafetyChecklistDone?: boolean;
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => MedicationDto)
+  @IsOptional()
+  medications?: MedicationDto[];
 }

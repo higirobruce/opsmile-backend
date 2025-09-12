@@ -10,39 +10,9 @@ export enum SurgicalDecision {
   PENDING = 'pending'
 }
 
-export enum SampleType {
-  BLOOD = 'blood',
-  URINE = 'urine',
-  SKIN = 'skin',
-  NAIL = 'nail',
-  TEETH = 'teeth',
-  OTHER = 'other'
-}
-
-export interface Sample {
-  sampleType: SampleType,
-  collectionDate: Date,
-  status: string
-}
-
-export interface LabResult {
-  testName: string,
-  result: string,
-  unit: string,
-  referenceRange: string,
-  resultDate: Date
-}
-
-export interface LabTest {
-  name: string,
-  status: string,
-}
-
-export interface LabRequest {
-  status: string;
-  tests: LabTest[];
-  samples: Sample[];
-  results: LabResult[];
+export interface LabExam {
+  testName: string;
+  result: string;
 }
 
 export type MedicalAssessmentDocument = MedicalAssessment & Document;
@@ -62,7 +32,7 @@ export class MedicalAssessment {
   pastMedicalHistory: string;
 
   @Prop([Object])
-  labRequests: LabRequest[];
+  labExams: LabExam[];
 
   @Prop(String)
   @Prop({ required: true })

@@ -1,34 +1,59 @@
-import { IsMongoId, IsString, IsEnum, IsArray } from 'class-validator';
-import { SurgicalDecision } from '../schemas/medical-assessment.schema';
+import { IsMongoId, IsString, IsArray, IsOptional, ValidateNested, IsBoolean } from 'class-validator';
+import { Type } from 'class-transformer';
+
+class LabExamDto {
+  @IsString()
+  testName: string;
+
+  @IsString()
+  result: string;
+}
+
+class FileDto {
+  @IsString()
+  name: string;
+
+  @IsString()
+  base64Url: string;
+}
 
 export class CreateMedicalAssessmentDto {
   @IsMongoId()
   patientId: string;
 
-  @IsString()
-  chief_complaint: string;
-
-  @IsArray()
-  @IsString({ each: true })
-  past_medical_history: string[];
-
-  @IsArray()
-  @IsString({ each: true })
-  current_medication: string[];
-
-  @IsArray()
-  @IsString({ each: true })
-  allergies: string[];
-
-  @IsString()
-  provisional_diagnosis: string;
-
-  @IsString()
-  clinical_notes: string;
-
-  @IsEnum(SurgicalDecision)
-  surgical_decision: SurgicalDecision;
-
   @IsMongoId()
   doneById: string;
+
+  @IsString()
+  @IsOptional()
+  pastMedicalHistory?: string;
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => LabExamDto)
+  @IsOptional()
+  labExams?: LabExamDto[];
+
+  @IsString()
+  diagnosis: string;
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => FileDto)
+  @IsOptional()
+  uploadedFiles?: FileDto[];
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => FileDto)
+  @IsOptional()
+  uploadedPhotos?: FileDto[];
+
+  @IsBoolean()
+  @IsOptional()
+  clearedForSurgery?: boolean;
+
+  @IsString()
+  @IsOptional()
+  reasonForCancellation?: string;
 }

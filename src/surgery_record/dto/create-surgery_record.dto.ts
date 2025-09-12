@@ -32,7 +32,7 @@ export class CreateSurgeryRecordDto {
   surgeryType: SurgeryType;
 
   @IsString()
-  procedurePlan: string;
+  procedure: string;
 
   @IsArray()
   @ValidateNested({ each: true })

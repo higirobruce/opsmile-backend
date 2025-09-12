@@ -1,6 +1,12 @@
 import { IsNumber, IsString, IsMongoId, IsArray, IsOptional, Min, Max } from 'class-validator';
 
 export class VitalSignBaseDto {
+  @IsMongoId()
+  patientId: string;
+
+  @IsMongoId()
+  nurseId: string;
+
   @IsNumber()
   @Min(0)
   @Max(300)
@@ -39,15 +45,21 @@ export class VitalSignBaseDto {
   @Min(0)
   height: number;
 
+  @IsNumber()
+  @Min(0)
+  bmi: number;
+
   @IsOptional()
   @IsString()
   nursingNotes?: string;
 
   @IsArray()
   @IsString({ each: true })
+  @IsOptional()
   ownDiagnosis: string[];
 
   @IsArray()
   @IsString({ each: true })
+  @IsOptional()
   healthBarriers: string[];
 }
