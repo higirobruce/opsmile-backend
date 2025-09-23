@@ -31,8 +31,15 @@ export class MedicalAssessment {
   @Prop(String)
   pastMedicalHistory: string;
 
-  @Prop([Object])
-  labExams: LabExam[];
+  @Prop(String)
+  labExams: string;
+
+
+  @Prop(String)
+  physicalExams: string;
+
+  @Prop(String)
+  consultativeNotes: string;
 
   @Prop(String)
   @Prop({ required: true })
@@ -44,11 +51,20 @@ export class MedicalAssessment {
   @Prop({ type: [Object] })
   uploadedPhotos: ConsentFile[];
 
+  @Prop({ type: [Object] })
+  uploadedLabExams: ConsentFile[];
+
   @Prop({ type: Boolean })
   clearedForSurgery: boolean;
 
   @Prop({ type: String })
-  reasonForCancellation: string
+  reasonForPending: string
+
+  @Prop({ type: String })
+  surgicalDecision: SurgicalDecision;
+
+  @Prop({ type: String })
+  destinationForTransferred: string
 }
 
 export const MedicalAssessmentSchema = SchemaFactory.createForClass(MedicalAssessment);

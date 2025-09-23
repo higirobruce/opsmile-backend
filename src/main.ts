@@ -18,6 +18,8 @@ async function bootstrap() {
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     credentials: true, // allow cookies, Authorization headers, etc.
   });
+
+  //enable swagger
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();

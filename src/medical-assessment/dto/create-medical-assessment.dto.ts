@@ -28,11 +28,17 @@ export class CreateMedicalAssessmentDto {
   @IsOptional()
   pastMedicalHistory?: string;
 
-  @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => LabExamDto)
+  @IsString()
   @IsOptional()
-  labExams?: LabExamDto[];
+  labExams?: string;
+
+  @IsString()
+  @IsOptional()
+  physicalExams?: string;
+
+  @IsString()
+  @IsOptional()
+  consultativeNotes?: string;
 
   @IsString()
   diagnosis: string;
@@ -49,11 +55,27 @@ export class CreateMedicalAssessmentDto {
   @IsOptional()
   uploadedPhotos?: FileDto[];
 
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => FileDto)
+  @IsOptional()
+  uploadedLabExams?: FileDto[];
+
   @IsBoolean()
   @IsOptional()
   clearedForSurgery?: boolean;
 
   @IsString()
   @IsOptional()
-  reasonForCancellation?: string;
+  surgicalDecision?: string;
+
+
+  @IsString()
+  @IsOptional()
+  destinationForTransferred?: string;
+
+  @IsString()
+  @IsOptional()
+  reasonForPending?: string;
 }
