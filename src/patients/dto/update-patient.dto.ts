@@ -9,4 +9,5 @@ export class UpdatePatientDto extends PartialType(CreatePatientDto) {
     email: string
     countryOfBirth: string
     status: 'Active' | 'Inactive'
+    programId?: string
 }

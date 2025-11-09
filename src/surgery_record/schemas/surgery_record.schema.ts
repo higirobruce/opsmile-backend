@@ -58,7 +58,7 @@ export class SurgeryRecord {
   @Prop({
     type: String,
     enum: SurgeryStatus,
-    default: SurgeryStatus.SCHEDULED
+    default: SurgeryStatus.COMPLETED
   })
   status: SurgeryStatus;
 
@@ -85,6 +85,9 @@ export class SurgeryRecord {
 
   @Prop()
   surgicalNotes: string;
+
+  @Prop()
+  observers: string;
 
   @Prop()
   postOperativeInstructions: string;

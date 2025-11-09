@@ -3,6 +3,7 @@ import { Document, Schema as MongooseSchema } from 'mongoose';
 import { Patient } from '../../patients/schemas/patient.schema';
 import { User } from '../../users/schemas/user.schema';
 import { ConsentFile } from 'src/anesthesia/schemas/anesthesia.schema';
+import { Program } from '../../program/schemas/program.schema';
 
 export enum SurgicalDecision {
   SURGERY = 'surgery',
@@ -24,6 +25,7 @@ export class MedicalAssessment {
 
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
   doneBy: User;
+  
 
   @Prop({ default: Date.now })
   assessmentDate: Date;

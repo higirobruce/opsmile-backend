@@ -13,13 +13,15 @@ async function bootstrap() {
     credentials: true,
   });
 
-  app.enableCors({
+  app.enableCors(
+    {
     origin: ['http://localhost:3001', 'https://myfrontend.example.com'],
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     credentials: true, // allow cookies, Authorization headers, etc.
-  });
+  }
+);
 
   //enable swagger
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(process.env.PORT ?? 9999);
 }
 bootstrap();

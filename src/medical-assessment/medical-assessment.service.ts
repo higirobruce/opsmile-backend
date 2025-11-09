@@ -5,6 +5,7 @@ import { MedicalAssessment, MedicalAssessmentDocument } from './schemas/medical-
 import { CreateMedicalAssessmentDto } from './dto/create-medical-assessment.dto';
 import { PatientsService } from '../patients/patients.service';
 import { UsersService } from '../users/users.service';
+import { ProgramService } from '../program/program.service';
 import { ActivityLogService } from 'src/activity-log/activity-log.service';
 
 @Injectable()
@@ -14,6 +15,7 @@ export class MedicalAssessmentService {
     private patientsService: PatientsService,
     private usersService: UsersService,
     private activityLogService: ActivityLogService,
+    private programService: ProgramService,
   ) { }
 
   async create(createMedicalAssessmentDto: CreateMedicalAssessmentDto): Promise<MedicalAssessment> {

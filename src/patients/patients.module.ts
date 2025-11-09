@@ -6,11 +6,13 @@ import { MedicalAssessment } from 'src/medical-assessment/entities/medical-asses
 import { MongooseModule } from '@nestjs/mongoose';
 import { PatientSchema } from './schemas/patient.schema';
 import { ActivityLogModule } from 'src/activity-log/activity-log.module';
+import { ProgramModule } from 'src/program/program.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Patient.name, schema: PatientSchema }]),
-    ActivityLogModule
+    ActivityLogModule,
+    ProgramModule
   ],
   controllers: [PatientsController],
   providers: [PatientsService],

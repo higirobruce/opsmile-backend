@@ -13,6 +13,7 @@ import { SurgeryRecordModule } from './surgery_record/surgery_record.module';
 import { ActivityLogModule } from './activity-log/activity-log.module';
 import { ProgressModule } from './progress/progress.module';
 import { DischargeModule } from './discharge/discharge.module';
+import { ProgramModule } from './program/program.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { DischargeModule } from './discharge/discharge.module';
     ActivityLogModule,
     ProgressModule,
     DischargeModule,
+    ProgramModule,
   ],
   controllers: [AppController],
   providers: [AppService],

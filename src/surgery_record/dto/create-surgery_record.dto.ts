@@ -34,6 +34,10 @@ export class CreateSurgeryRecordDto {
   @IsString()
   procedure: string;
 
+  @IsString()
+  @IsOptional()
+  observers: string;
+
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => ImageFileDto)

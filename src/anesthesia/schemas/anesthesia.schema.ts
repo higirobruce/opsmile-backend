@@ -15,6 +15,8 @@ export enum AnesthesiaType {
   GENERAL = 'GENERAL',
   REGIONAL = 'REGIONAL',
   LOCAL = 'LOCAL',
+  WALANT = 'WALANT',
+  BLOCK = 'BLOCK',
 }
 
 export enum Decision {
@@ -38,6 +40,7 @@ export enum MallampatiScore {
   II = 'II',
   III = 'III',
   IV = 'IV',
+  V = 'V',
 }
 
 export type AnesthesiaDocument = Anesthesia & Document;

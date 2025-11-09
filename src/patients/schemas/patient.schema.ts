@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
+import { Program } from '../../program/schemas/program.schema';
 
 export type PatientDocument = Patient & Document;
 
@@ -10,6 +11,7 @@ export type PatientDocument = Patient & Document;
 })
 export class Patient {
   _id: MongooseSchema.Types.ObjectId;
+  
   @Prop({ required: true })
   firstName: string;
 
@@ -48,6 +50,9 @@ export class Patient {
 
   @Prop()
   guardianDateOfBirth: Date;
+
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Program', required: true })
+  program: Program;
 }
 
 export const PatientSchema = SchemaFactory.createForClass(Patient);

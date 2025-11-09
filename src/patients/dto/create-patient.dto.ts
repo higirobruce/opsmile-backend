@@ -1,5 +1,5 @@
 // filepath: /Users/brucehigiro/Documents/development/cleft/backend/cleft-backend/src/patients/dto/create-patient.dto.ts
-import { IsString, IsOptional, IsDate } from 'class-validator';
+import { IsString, IsOptional, IsDate, IsMongoId } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class CreatePatientDto {
@@ -53,4 +53,7 @@ export class CreatePatientDto {
   @IsOptional()
   @Type(() => Date)
   guardianDateOfBirth?: Date;
+
+  @IsMongoId()
+  programId: string;
 }
