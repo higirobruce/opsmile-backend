@@ -1,10 +1,10 @@
 import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
 import { AnesthesiaService } from './anesthesia.service';
 import { CreateAnesthesiaDto } from './dto/create-anesthesia.dto';
-// import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('anesthesia')
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 export class AnesthesiaController {
   constructor(private readonly anesthesiaService: AnesthesiaService) {}
 

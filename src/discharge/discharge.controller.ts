@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
 import { DischargeService } from './discharge.service';
 import { CreateDischargeDto } from './dto/create-discharge.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('discharge')
+@UseGuards(AuthGuard('jwt'))  
 export class DischargeController {
   constructor(private readonly dischargeService: DischargeService) {}
 

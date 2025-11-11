@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
 import { ProgressService } from './progress.service';
 import { CreateProgressDto } from './dto/create-progress.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('progress')
+@UseGuards(AuthGuard('jwt'))
 export class ProgressController {
   constructor(private readonly progressService: ProgressService) {}
 

@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { MedicalAssessmentService } from './medical-assessment.service';
 import { CreateMedicalAssessmentDto } from './dto/create-medical-assessment.dto';
 import { UpdateMedicalAssessmentDto } from './dto/update-medical-assessment.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('medical-assessment')
+@UseGuards(AuthGuard('jwt'))
 export class MedicalAssessmentController {
   constructor(private readonly medicalAssessmentService: MedicalAssessmentService) {}
 
