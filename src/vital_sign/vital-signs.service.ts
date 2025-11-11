@@ -52,6 +52,7 @@ export class VitalSignsService {
       .find()
       .populate('patient')
       .populate('nurse')
+      .sort({ assessmentDateTime: -1 })
       .exec();
   }
 
