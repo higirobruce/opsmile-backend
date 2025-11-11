@@ -7,6 +7,7 @@ export type ProgramDocument = Program & Document;
 export enum ProgramStatus {
   ACTIVE = 'active',
   COMPLETED = 'completed',
+  UPCOMING = 'upcoming',
 }
 
 @Schema({ timestamps: true })
