@@ -5,9 +5,9 @@ import { User } from 'src/users/entities/user.entity';
 export type ProgramDocument = Program & Document;
 
 export enum ProgramStatus {
-  ACTIVE = 'active',
   COMPLETED = 'completed',
   UPCOMING = 'upcoming',
+  ONGOING = 'ongoing',
 }
 
 @Schema({ timestamps: true })
@@ -30,7 +30,7 @@ export class Program {
   @Prop()
   location: string;
 
-  @Prop({ default: ProgramStatus.ACTIVE })
+  @Prop({ default: ProgramStatus.ONGOING })
   status: ProgramStatus;
 
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })

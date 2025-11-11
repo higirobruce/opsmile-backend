@@ -21,9 +21,6 @@ export class CreateProgramDto {
   @IsOptional()
   location?: string;
 
-  @IsString()
-  @IsOptional()
-  status?: string;
 
   @IsMongoId()
   @IsOptional()

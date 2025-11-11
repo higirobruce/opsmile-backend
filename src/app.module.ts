@@ -1,5 +1,5 @@
-import { AnesthesiaModule } from './anesthesia/anesthesia.module';
 import { Module } from '@nestjs/common';
+import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PatientsModule } from './patients/patients.module';
@@ -14,6 +14,7 @@ import { ActivityLogModule } from './activity-log/activity-log.module';
 import { ProgressModule } from './progress/progress.module';
 import { DischargeModule } from './discharge/discharge.module';
 import { ProgramModule } from './program/program.module';
+import { AnesthesiaModule } from './anesthesia/anesthesia.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ProgramModule } from './program/program.module';
       isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.MONGODB_CONNECTION_STRING),
+    ScheduleModule.forRoot(),
     PatientsModule,
     UsersModule,
     MedicalAssessmentModule,
