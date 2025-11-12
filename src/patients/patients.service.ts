@@ -46,7 +46,7 @@ export class PatientsService {
       .populate('medical_assessments')
       .populate('anesthesia_records')
       .populate('surgeries')
-      .populate('activity_log')
+      // .populate('activity_log')
       .populate('program')
       .skip((currentPage - 1) * pageSize)
       .limit(pageSize)
