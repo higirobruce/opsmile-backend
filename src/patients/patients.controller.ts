@@ -30,8 +30,8 @@ export class PatientsController {
   }
 
   @Get('search')
-  findOneByPhoneNumberOrName(@Query('search') search: string, @Query('page') page: number) {
-    return this.patientsService.findOneByPhoneNumberOrName(search, +page);
+  findOneByPhoneNumberOrName(@Query('search') search: string, @Query('page') page: number, @Query('pageSize') pageSize: number) {
+    return this.patientsService.findOneByPhoneNumberOrName(search, +page, +pageSize);
   }
 
   @Get(':id')

@@ -48,9 +48,15 @@ export class ProgramService {
   async findAll(): Promise<Program[]> {
     return this.programModel
       .find()
+      .sort({ startDate: -1 })
       .populate('patients')
       .populate('coordinator')
       .populate('participants')
+      .populate('province')
+      .populate('district')
+      .populate('sector')
+      .populate('cell')
+      .populate('village')
       .exec();
   }
 
@@ -60,6 +66,11 @@ export class ProgramService {
       .populate('patients')
       .populate('coordinator')
       .populate('participants')
+      .populate('province')
+      .populate('district')
+      .populate('sector')
+      .populate('cell')
+      .populate('village')
       .exec();
 
     if (!program) {

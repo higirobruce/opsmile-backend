@@ -25,6 +25,22 @@ export class CreatePatientDto {
   @IsOptional()
   address?: string;
 
+  @IsMongoId()
+  @IsOptional()
+  cell: string;
+
+  @IsMongoId()
+  @IsOptional()
+  sector: string;
+
+  @IsMongoId()
+  @IsOptional()
+  district: string;
+
+  @IsMongoId()
+  @IsOptional()
+  province: string;
+
   @IsString()
   @IsOptional()
   nid?: string;

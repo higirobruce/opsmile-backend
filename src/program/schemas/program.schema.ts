@@ -1,6 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
+import { District } from 'src/districts/schemas/districts.schema';
+import { Cell } from 'src/cells/entities/cell.entity';
+import { Province } from 'src/provinces/schemas/province.schema';
 import { User } from 'src/users/entities/user.entity';
+import { Sector } from 'src/sectors/entities/sector.entity';
+import { Village } from 'src/villages/entities/village.entity';
 
 export type ProgramDocument = Program & Document;
 
@@ -29,6 +34,21 @@ export class Program {
 
   @Prop()
   location: string;
+
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Province' })
+  province: Province;
+
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'District' })
+  district: District;
+
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Sector' })
+  sector: Sector;
+
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Cell' })
+  cell: Cell;
+
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Village' })
+  village: Village;
 
   @Prop({ default: ProgramStatus.ONGOING })
   status: ProgramStatus;

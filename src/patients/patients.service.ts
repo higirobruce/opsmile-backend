@@ -19,9 +19,13 @@ export class PatientsService {
     const { programId, ...rest } = createPatientDto;
     const program = await this.programService.findOne(programId);
 
+    const lastPatient = await this.patientModel.findOne().sort({ registrationNumber: -1 }).exec();
+    const newRegistrationNumber = lastPatient && lastPatient.registrationNumber ? lastPatient.registrationNumber + 1 : 10000;
+
     const createdPatient = new this.patientModel({
       ...rest,
       program: program._id,
+      registrationNumber: newRegistrationNumber,
     });
     const patient = await createdPatient.save();
 
@@ -48,6 +52,7 @@ export class PatientsService {
       .populate('surgeries')
       // .populate('activity_log')
       .populate('program')
+      .sort({ createdAt: -1 })
       .skip((currentPage - 1) * pageSize)
       .limit(pageSize)
       .exec();
@@ -82,6 +87,9 @@ export class PatientsService {
         options: { sort: { createdAt: -1 } }, // 👈 populate the surgeon and anesthesiologist fields inside surgeries
       })
       .populate('program')
+      .populate('province')
+      .populate('district')
+      .populate('cell')
       .exec();
 
     if (!patient) {
@@ -90,8 +98,7 @@ export class PatientsService {
     return patient;
   }
 
-  async findOneByPhoneNumberOrName(search: string, currentPage: number): Promise<{ patients: Patient[], totalPages: number }> {
-    const pageSize = 5;
+  async findOneByPhoneNumberOrName(search: string, currentPage: number, pageSize: number): Promise<{ patients: Patient[], totalPages: number, totalCount: number }> {
     const totalPatients = await this.patientModel.countDocuments({
       $or: [
         { firstName: new RegExp(search, 'i') },
@@ -109,8 +116,13 @@ export class PatientsService {
           { phoneNumber: new RegExp(search, 'i') },
         ],
       })
+      .sort({ createdAt: -1 })
       .populate('vital_signs')
       .populate('medical_assessments')
+      .populate('program')
+      .populate('province')
+      .populate('district')
+      .populate('cell')
       .skip((currentPage - 1) * pageSize)
       .limit(pageSize)
       .exec();
@@ -118,6 +130,7 @@ export class PatientsService {
     return {
       patients,
       totalPages,
+      totalCount: totalPatients,
     };
   }
 

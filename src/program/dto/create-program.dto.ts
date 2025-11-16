@@ -21,6 +21,25 @@ export class CreateProgramDto {
   @IsOptional()
   location?: string;
 
+  @IsMongoId()
+  @IsOptional()
+  provinceId?: string;
+
+  @IsMongoId()
+  @IsOptional()
+  districtId?: string;
+
+  @IsMongoId()
+  @IsOptional()
+  sectorId?: string;
+
+  @IsMongoId()
+  @IsOptional()
+  cellId?: string;
+
+  @IsMongoId()
+  @IsOptional()
+  villageId?: string;
 
   @IsMongoId()
   @IsOptional()

@@ -1,6 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 import { Program } from '../../program/schemas/program.schema';
+import { Cell } from 'src/cells/entities/cell.entity';
+import { Village } from 'src/villages/entities/village.entity';
+import { Sector } from 'src/sectors/entities/sector.entity';
+import { District } from 'src/districts/schemas/districts.schema';
+import { Province } from 'src/provinces/schemas/province.schema';
 
 export type PatientDocument = Patient & Document;
 
@@ -11,7 +16,7 @@ export type PatientDocument = Patient & Document;
 })
 export class Patient {
   _id: MongooseSchema.Types.ObjectId;
-  
+
   @Prop({ required: true })
   firstName: string;
 
@@ -21,14 +26,32 @@ export class Patient {
   @Prop({ required: true, unique: true })
   phoneNumber: string;
 
+  @Prop({ unique: true })
+  registrationNumber: number;
+
   @Prop()
   dateOfBirth: Date;
 
   @Prop()
-  sex: string;
+  gender: string;
 
   @Prop()
   address: string;
+
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Village', required: true })
+  village: Village;
+
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Cell', required: true })
+  cell: Cell;
+
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Sector', required: true })
+  sector: Sector;
+
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'District', required: true })
+  district: District;
+
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Province', required: true })
+  province: Province;
 
   @Prop()
   nid: string;

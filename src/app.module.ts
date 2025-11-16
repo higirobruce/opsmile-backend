@@ -15,6 +15,11 @@ import { ProgressModule } from './progress/progress.module';
 import { DischargeModule } from './discharge/discharge.module';
 import { ProgramModule } from './program/program.module';
 import { AnesthesiaModule } from './anesthesia/anesthesia.module';
+import { ProvincesModule } from './provinces/provinces.module';
+import { DistrictsModule } from './districts/districts.module';
+import { SectorsModule } from './sectors/sectors.module';
+import { CellsModule } from './cells/cells.module';
+import { VillagesModule } from './villages/villages.module';
 
 @Module({
   imports: [
@@ -34,6 +39,11 @@ import { AnesthesiaModule } from './anesthesia/anesthesia.module';
     ProgressModule,
     DischargeModule,
     ProgramModule,
+    ProvincesModule,
+    DistrictsModule,
+    SectorsModule,
+    CellsModule,
+    VillagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
