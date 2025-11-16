@@ -20,6 +20,7 @@ import { DistrictsModule } from './districts/districts.module';
 import { SectorsModule } from './sectors/sectors.module';
 import { CellsModule } from './cells/cells.module';
 import { VillagesModule } from './villages/villages.module';
+import { ProgressiveNotesModule } from './progressive-notes/progressive-notes.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { VillagesModule } from './villages/villages.module';
     SectorsModule,
     CellsModule,
     VillagesModule,
+    ProgressiveNotesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

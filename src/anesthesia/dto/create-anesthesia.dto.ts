@@ -47,6 +47,11 @@ export class CreateAnesthesiaDto {
   @Type(() => ConsentFileDto)
   consentFileUrl: ConsentFileDto[];
 
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => ConsentFileDto)
+  anesthesiaChecklistUrl: ConsentFileDto[];
+
   @IsBoolean()
   clearedForAnesthesiaBool: boolean;
 

@@ -74,6 +74,9 @@ export class Anesthesia {
   @Prop({ type: [Object] })
   consentFileUrl: ConsentFile[];
 
+  @Prop({ type: [Object] })
+  anesthesiaChecklistUrl: ConsentFile[];
+
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
   doneBy: User;
 
