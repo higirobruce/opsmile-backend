@@ -24,6 +24,28 @@ export class Discharge {
 
   @Prop({ required: true })
   followUpInstructions: string;
+
+  @Prop({ required: true })
+  diagnosis: string;
+
+  @Prop({ required: true })
+  procedure: string;
+
+  @Prop({ required: true })
+  patientDisposition: string
+
+  @Prop()
+  reviewDate: Date;
+
+  @Prop()
+  isFollowUp: boolean;
+
+  @Prop()
+  followUpDate: Date
+
+  @Prop()
+  followUpDuration: number
+
 }
 
 export const DischargeSchema = SchemaFactory.createForClass(Discharge);

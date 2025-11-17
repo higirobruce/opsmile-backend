@@ -1,4 +1,4 @@
-import { IsMongoId, IsString, IsDate, IsArray, IsOptional } from 'class-validator';
+import { IsMongoId, IsString, IsDate, IsArray, IsOptional, IsBoolean, IsNumber } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class CreateDischargeDto {
@@ -22,4 +22,25 @@ export class CreateDischargeDto {
 
   @IsString()
   followUpInstructions: string;
+
+  @IsString()
+  diagnosis: string;
+
+  @IsString()
+  procedure: string;
+
+  @IsString()
+  patientDisposition: string
+
+  @IsDate()
+  reviewDate: Date;
+
+  @IsBoolean()
+  isFollowUp: boolean;
+
+  @IsDate()
+  followUpDate: Date
+
+  @IsNumber()
+  followUpDuration: number
 }
