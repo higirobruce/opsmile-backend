@@ -48,6 +48,9 @@ export class SurgeryRecord {
   @Prop({ required: true })
   surgeryDate: Date;
 
+  @Prop({ required: true })
+  surgeryEndDate: Date;
+
   @Prop({
     type: String,
     enum: SurgeryType,

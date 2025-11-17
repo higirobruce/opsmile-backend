@@ -28,6 +28,10 @@ export class CreateSurgeryRecordDto {
   @Type(() => Date)
   surgeryDate: Date;
 
+  @IsDate()
+  @Type(() => Date)
+  surgeryEndDate: Date;
+
   @IsEnum(SurgeryType)
   surgeryType: SurgeryType;
 
