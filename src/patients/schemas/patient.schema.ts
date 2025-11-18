@@ -111,5 +111,12 @@ PatientSchema.virtual('surgeries', {
   justOne: false
 });
 
+PatientSchema.virtual('discharges', {
+  ref: 'Discharge',
+  localField: '_id',
+  foreignField: 'patient',
+  justOne: false
+});
+
 // Add compound index for search optimization
 PatientSchema.index({ firstName: 'text', lastName: 'text', phoneNumber: 'text' });

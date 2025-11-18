@@ -90,6 +90,7 @@ export class PatientsService {
       .populate('province')
       .populate('district')
       .populate('cell')
+      .populate('discharges')
       .exec();
 
     if (!patient) {
@@ -123,6 +124,7 @@ export class PatientsService {
       .populate('province')
       .populate('district')
       .populate('cell')
+      .populate('discharges')
       .skip((currentPage - 1) * pageSize)
       .limit(pageSize)
       .exec();
