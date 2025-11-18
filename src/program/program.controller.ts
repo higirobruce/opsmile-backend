@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } from '@nestjs/common';
 import { ProgramService } from './program.service';
 import { CreateProgramDto } from './dto/create-program.dto';
 import { UpdateProgramDto } from './dto/update-program.dto';
@@ -8,7 +8,7 @@ import { AuthGuard } from '@nestjs/passport';
 @Controller('programs')
 @UseGuards(AuthGuard('jwt'))
 export class ProgramController {
-  constructor(private readonly programService: ProgramService) {}
+  constructor(private readonly programService: ProgramService) { }
 
   @Post()
   create(@Body() createProgramDto: CreateProgramDto) {
@@ -19,11 +19,16 @@ export class ProgramController {
   findAll() {
     return this.programService.findAll();
   }
+  @Get('search')
+  findOneBName(@Query('search') search: string, @Query('page') page: number, @Query('pageSize') pageSize: number) {
+    return this.programService.findByName(search, +page, +pageSize);
+  }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.programService.findOne(id);
   }
+
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProgramDto: UpdateProgramDto) {

@@ -12,7 +12,7 @@ export class ProgramService {
   constructor(
     @InjectModel(Program.name) private programModel: Model<ProgramDocument>,
     private usersService: UsersService,
-  ) {}
+  ) { }
 
   private calculateProgramStatus(startDate?: Date, endDate?: Date): ProgramStatus {
     const now = new Date();
@@ -80,6 +80,44 @@ export class ProgramService {
     return program;
   }
 
+  async findByName(search: string, page: number, pageSize: number) {
+    const totalPrograms = await this.programModel.countDocuments({
+      $or: [
+        { name: new RegExp(search, 'i') }
+      ],
+    }).exec();
+    const totalPages = Math.ceil(totalPrograms / pageSize);
+
+    const programs = await this.programModel
+      .find({
+        $or: [
+          { name: new RegExp(search, 'i') }
+        ],
+      })
+      .populate('patients')
+      .populate('coordinator')
+      .populate('participants')
+      .populate('province')
+      .populate('district')
+      .populate('sector')
+      .populate('cell')
+      .populate('village')
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * pageSize)
+      .limit(pageSize)
+      .exec();
+
+    if (!programs) {
+      throw new NotFoundException(`Program with name ${search} not found`);
+    }
+
+    return {
+      programs,
+      totalPages,
+      totalCount: totalPrograms,
+    };
+  }
+
   async update(id: string, updateProgramDto: UpdateProgramDto): Promise<Program> {
     const { coordinatorId, startDate, endDate, ...updateData } = updateProgramDto;
     const existingProgram = await this.programModel.findById(id).exec();
@@ -114,7 +152,7 @@ export class ProgramService {
 
   async remove(id: string): Promise<void> {
     const result = await this.programModel.findByIdAndDelete(id).exec();
-    
+
     if (!result) {
       throw new NotFoundException(`Program with ID ${id} not found`);
     }
@@ -122,7 +160,7 @@ export class ProgramService {
 
   async addPatientToProgram(programId: string, patientId: ObjectId): Promise<Program> {
     const program = await this.programModel.findById(programId).exec();
-    
+
     if (!program) {
       throw new NotFoundException(`Program with ID ${programId} not found`);
     }
@@ -137,7 +175,7 @@ export class ProgramService {
 
   async removePatientFromProgram(programId: string, patientId: string): Promise<Program> {
     const program = await this.programModel.findById(programId).exec();
-    
+
     if (!program) {
       throw new NotFoundException(`Program with ID ${programId} not found`);
     }
@@ -145,7 +183,7 @@ export class ProgramService {
     program.patients = program.patients.filter(
       patient => patient.toString() !== patientId
     );
-    
+
     return program.save();
   }
 
