@@ -26,6 +26,7 @@ export class SurgeryRecordService {
       patient: patient._id,
       surgeon: surgeon._id,
       anesthesiologist: anesthesiologist._id,
+      patientFile: createSurgeryDto.patientFile
     });
 
     await this.activityLogService.create({

@@ -72,4 +72,7 @@ export class CreatePatientDto {
 
   @IsMongoId()
   programId: string;
+
+  @IsString()
+  status: string
 }

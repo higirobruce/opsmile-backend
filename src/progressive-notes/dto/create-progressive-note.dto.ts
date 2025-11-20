@@ -4,6 +4,7 @@ import { ProgressiveNotesType } from "../schemas/progressive-notes.schema";
 import { Patient } from "src/patients/entities/patient.entity";
 
 import { User } from "src/users/entities/user.entity";
+import { PatientFiles } from "src/patient-files/schemas/patient-files.schema";
 
 export class CreateProgressiveNoteDto {
 
@@ -20,6 +21,9 @@ export class CreateProgressiveNoteDto {
     
     @IsNotEmpty()
     patient: Patient;
+
+    @IsNotEmpty()
+    patientFile: PatientFiles;
     
     @IsNotEmpty()
     doneBy: User;

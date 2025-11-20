@@ -22,6 +22,9 @@ export class CreateMedicalAssessmentDto {
   patientId: string;
 
   @IsMongoId()
+  patientFile: string;
+
+  @IsMongoId()
   doneById: string;
 
   @IsString()

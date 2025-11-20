@@ -4,6 +4,7 @@ import { Patient } from '../../patients/schemas/patient.schema';
 import { User } from '../../users/schemas/user.schema';
 import { ConsentFile } from 'src/anesthesia/schemas/anesthesia.schema';
 import { Program } from '../../program/schemas/program.schema';
+import { PatientFiles } from 'src/patient-files/schemas/patient-files.schema';
 
 export enum SurgicalDecision {
   SURGERY = 'surgery',
@@ -22,6 +23,9 @@ export type MedicalAssessmentDocument = MedicalAssessment & Document;
 export class MedicalAssessment {
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Patient', required: true })
   patient: Patient;
+
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'PatientFiles', required: true })
+  patientFile: PatientFiles;
 
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
   doneBy: User;

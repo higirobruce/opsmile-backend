@@ -22,6 +22,7 @@ export class ProgressService {
       ...createProgressDto,
       patient: patient._id,
       doctor: doctor._id,
+      patientFile: createProgressDto.patientFile
     });
 
     return createdProgress.save();

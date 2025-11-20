@@ -22,6 +22,7 @@ import { CellsModule } from './cells/cells.module';
 import { VillagesModule } from './villages/villages.module';
 import { ProgressiveNotesModule } from './progressive-notes/progressive-notes.module';
 import { FollowUpsModule } from './follow-ups/follow-ups.module';
+import { PatientFilesModule } from './patient-files/patient-files.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { FollowUpsModule } from './follow-ups/follow-ups.module';
     VillagesModule,
     ProgressiveNotesModule,
     FollowUpsModule,
+    PatientFilesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

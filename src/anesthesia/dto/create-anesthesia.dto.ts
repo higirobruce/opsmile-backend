@@ -22,6 +22,9 @@ export class CreateAnesthesiaDto {
   @IsMongoId()
   patientId: string;
 
+  @IsMongoId()
+  patientFile: string;
+
   @IsString()
   @IsOptional()
   pastAnestheticHistory?: string;

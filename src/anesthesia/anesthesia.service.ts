@@ -14,7 +14,7 @@ export class AnesthesiaService {
     private patientsService: PatientsService,
     private usersService: UsersService,
     private activityLogService: ActivityLogService,
-  ) {}
+  ) { }
 
   async create(createAnesthesiaDto: CreateAnesthesiaDto): Promise<Anesthesia> {
     const patient = await this.patientsService.findOne(createAnesthesiaDto.patientId);
@@ -24,6 +24,7 @@ export class AnesthesiaService {
       ...createAnesthesiaDto,
       patient: patient._id,
       doneBy: user._id,
+      patientFile: createAnesthesiaDto.patientFile
     });
 
     await this.activityLogService.create({

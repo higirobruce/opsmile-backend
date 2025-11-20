@@ -6,6 +6,9 @@ export class CreateProgressDto {
   patientId: string;
 
   @IsMongoId()
+  patientFile: string;
+
+  @IsMongoId()
   doctorId: string;
 
   @IsDate()

@@ -46,12 +46,8 @@ export class PatientsService {
 
     const patients = await this.patientModel
       .find()
-      .populate('vital_signs')
-      .populate('medical_assessments')
-      .populate('anesthesia_records')
-      .populate('surgeries')
-      // .populate('activity_log')
-      .populate('program')
+      .populate('patient_files')
+
       .sort({ createdAt: -1 })
       .skip((currentPage - 1) * pageSize)
       .limit(pageSize)
@@ -63,34 +59,29 @@ export class PatientsService {
     }
   }
 
+
   async findOne(id: string): Promise<Patient> {
     const patient = await this.patientModel
       .findById(id)
       .populate({
-        path: 'vital_signs',
-        populate: { path: 'nurse' },
-        options: { sort: { createdAt: -1 } }, // 👈 populate the recordedBy field inside vital_signs
+        path: 'program',
+        select: '_id name description'
       })
-      .populate({
-        path: 'medical_assessments',
-        populate: { path: 'doneBy' },
-        options: { sort: { createdAt: -1 } }, // 👈 populate the assessor field inside medical_assessments
-      })
-      .populate({
-        path: 'anesthesia_records',
-        populate: { path: 'doneBy' },
-        options: { sort: { createdAt: -1 } }, // 👈 populate the anesthesiologist field inside anesthesia_records
-      })
-      .populate({
-        path: 'surgeries',
-        populate: [{ path: 'surgeon' }, { path: 'anesthesiologist' }],
-        options: { sort: { createdAt: -1 } }, // 👈 populate the surgeon and anesthesiologist fields inside surgeries
-      })
-      .populate('program')
       .populate('province')
       .populate('district')
       .populate('cell')
-      .populate('discharges')
+      .populate(
+        {
+          path: 'patient_files',
+          populate: [
+            {
+              path:'program',
+              select: '_id name description status createdAt'
+            }
+          ]
+        }
+
+      )
       .exec();
 
     if (!patient) {
@@ -118,13 +109,13 @@ export class PatientsService {
         ],
       })
       .sort({ createdAt: -1 })
-      .populate('vital_signs')
-      .populate('medical_assessments')
-      .populate('program')
+      .populate({
+        path: 'program',
+        select: '_id name description startDate endDate status '
+      })
       .populate('province')
       .populate('district')
       .populate('cell')
-      .populate('discharges')
       .skip((currentPage - 1) * pageSize)
       .limit(pageSize)
       .exec();

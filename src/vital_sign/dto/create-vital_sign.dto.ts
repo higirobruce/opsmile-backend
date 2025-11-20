@@ -6,5 +6,8 @@ export class CreateVitalSignDto extends VitalSignBaseDto {
   patientId: string;
 
   @IsMongoId()
+  patientFile: string;
+
+  @IsMongoId()
   nurseId: string;
 }

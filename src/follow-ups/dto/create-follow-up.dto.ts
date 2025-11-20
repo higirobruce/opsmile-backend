@@ -31,4 +31,7 @@ export class CreateFollowUpDto {
 
     @IsMongoId()
     patientId: string;
+
+    @IsMongoId()
+    patientFile: string;
 }

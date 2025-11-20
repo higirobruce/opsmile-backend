@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document, Schema as MongooseSchema } from 'mongoose';
+import { PatientFiles } from 'src/patient-files/schemas/patient-files.schema';
 import { Patient } from 'src/patients/entities/patient.entity';
 import { ImageFile } from 'src/surgery_record/schemas/surgery_record.schema';
 
@@ -22,6 +23,9 @@ export class FollowUpRecord {
 
     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Patient', required: true })
     patient: Patient;
+
+    @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'PatientFiles', required: true })
+    patientFile: PatientFiles;
 }
 
 export const FollowUpSchema = SchemaFactory.createForClass(FollowUpRecord);

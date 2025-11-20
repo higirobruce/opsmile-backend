@@ -22,6 +22,7 @@ export class DischargeService {
       ...createDischargeDto,
       patient: patient._id,
       doctor: doctor._id,
+      patientFile: createDischargeDto.patientFile
     });
 
     return createdDischarge.save();

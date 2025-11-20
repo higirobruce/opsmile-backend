@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 import { Patient } from '../../patients/schemas/patient.schema';
 import { User } from '../../users/schemas/user.schema';
+import { PatientFiles } from 'src/patient-files/schemas/patient-files.schema';
 
 export enum SurgeryType {
   // CLEFT_LIP = 'CLEFT_LIP',
@@ -38,6 +39,9 @@ export interface ImageFile {
 export class SurgeryRecord {
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Patient', required: true })
   patient: Patient;
+
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'PatientFiles', required: true })
+  patientFile: PatientFiles;
 
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
   surgeon: User;

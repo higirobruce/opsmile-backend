@@ -19,6 +19,9 @@ export class CreateSurgeryRecordDto {
   patientId: string;
 
   @IsMongoId()
+  patientFile: string;
+
+  @IsMongoId()
   surgeonId: string;
 
   @IsMongoId()

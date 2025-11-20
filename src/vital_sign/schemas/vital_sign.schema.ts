@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
 import { Patient } from '../../patients/entities/patient.entity';
 import { User } from 'src/users/entities/user.entity';
+import { PatientFiles } from 'src/patient-files/schemas/patient-files.schema';
 
 export type VitalSignDocument = VitalSign & Document;
 
@@ -9,6 +10,9 @@ export type VitalSignDocument = VitalSign & Document;
 export class VitalSign {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Patient', required: true })
   patient: Patient;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'PatientFiles', required: true })
+  patientFile: PatientFiles;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
   nurse: User;

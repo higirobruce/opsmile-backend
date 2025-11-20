@@ -6,6 +6,7 @@ import { Village } from 'src/villages/entities/village.entity';
 import { Sector } from 'src/sectors/entities/sector.entity';
 import { District } from 'src/districts/schemas/districts.schema';
 import { Province } from 'src/provinces/schemas/province.schema';
+import { PatientFiles } from 'src/patient-files/schemas/patient-files.schema';
 
 export type PatientDocument = Patient & Document;
 
@@ -76,46 +77,19 @@ export class Patient {
 
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Program', required: true })
   program: Program;
+
+  @Prop()
+  status: string;
 }
 
 export const PatientSchema = SchemaFactory.createForClass(Patient);
 
 // Add virtual for vital signs
-PatientSchema.virtual('vital_signs', {
-  ref: 'VitalSign',
+PatientSchema.virtual('patient_files', {
+  ref: 'PatientFiles',
   localField: '_id',
   foreignField: 'patient',
   justOne: false // Set to false since one patient can have many vital signs
-});
-
-// Add virtual for medical assessments
-PatientSchema.virtual('medical_assessments', {
-  ref: 'MedicalAssessment',
-  localField: '_id',
-  foreignField: 'patient',
-  justOne: false
-});
-
-// Add virtual for medical assessments
-PatientSchema.virtual('anesthesia_records', {
-  ref: 'Anesthesia',
-  localField: '_id',
-  foreignField: 'patient',
-  justOne: false
-});
-
-PatientSchema.virtual('surgeries', {
-  ref: 'SurgeryRecord',
-  localField: '_id',
-  foreignField: 'patient',
-  justOne: false
-});
-
-PatientSchema.virtual('discharges', {
-  ref: 'Discharge',
-  localField: '_id',
-  foreignField: 'patient',
-  justOne: false
 });
 
 // Add compound index for search optimization
