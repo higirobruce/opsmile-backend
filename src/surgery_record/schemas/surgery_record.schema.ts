@@ -65,7 +65,7 @@ export class SurgeryRecord {
   @Prop({
     type: String,
     enum: SurgeryStatus,
-    default: SurgeryStatus.COMPLETED
+    default: SurgeryStatus.SCHEDULED
   })
   status: SurgeryStatus;
 
