@@ -6,6 +6,7 @@ import { CreateAnesthesiaDto } from './dto/create-anesthesia.dto';
 import { PatientsService } from '../patients/patients.service';
 import { UsersService } from '../users/users.service';
 import { ActivityLogService } from 'src/activity-log/activity-log.service';
+import { PatientFilesService } from 'src/patient-files/patient-files.service';
 
 @Injectable()
 export class AnesthesiaService {
@@ -14,6 +15,7 @@ export class AnesthesiaService {
     private patientsService: PatientsService,
     private usersService: UsersService,
     private activityLogService: ActivityLogService,
+    private patientFilesService: PatientFilesService
   ) { }
 
   async create(createAnesthesiaDto: CreateAnesthesiaDto): Promise<Anesthesia> {
@@ -37,6 +39,8 @@ export class AnesthesiaService {
         doneBy: createAnesthesiaDto.doneById,
       }
     });
+
+    await this.patientFilesService.update(createAnesthesiaDto.patientFile, { anesthesia_done: true });
 
     return anesthesia.save();
   }

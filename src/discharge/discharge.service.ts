@@ -5,6 +5,7 @@ import { Discharge, DischargeDocument } from './schemas/discharge.schema';
 import { CreateDischargeDto } from './dto/create-discharge.dto';
 import { PatientsService } from '../patients/patients.service';
 import { UsersService } from '../users/users.service';
+import { PatientFilesService } from 'src/patient-files/patient-files.service';
 
 @Injectable()
 export class DischargeService {
@@ -12,7 +13,8 @@ export class DischargeService {
     @InjectModel(Discharge.name) private dischargeModel: Model<DischargeDocument>,
     private patientsService: PatientsService,
     private usersService: UsersService,
-  ) {}
+    private patientFilesService: PatientFilesService,
+  ) { }
 
   async create(createDischargeDto: CreateDischargeDto): Promise<Discharge> {
     const patient = await this.patientsService.findOne(createDischargeDto.patientId);
@@ -25,6 +27,7 @@ export class DischargeService {
       patientFile: createDischargeDto.patientFile
     });
 
+    await this.patientFilesService.update(createDischargeDto.patientFile, { discharge_done: true });
     return createdDischarge.save();
   }
 

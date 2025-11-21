@@ -7,6 +7,7 @@ import { PatientsService } from '../patients/patients.service';
 import { UsersService } from '../users/users.service';
 import { ProgramService } from '../program/program.service';
 import { ActivityLogService } from 'src/activity-log/activity-log.service';
+import { PatientFilesService } from 'src/patient-files/patient-files.service';
 
 @Injectable()
 export class MedicalAssessmentService {
@@ -15,7 +16,7 @@ export class MedicalAssessmentService {
     private patientsService: PatientsService,
     private usersService: UsersService,
     private activityLogService: ActivityLogService,
-    private programService: ProgramService,
+    private patientFilesService: PatientFilesService
   ) { }
 
   async create(createMedicalAssessmentDto: CreateMedicalAssessmentDto): Promise<MedicalAssessment> {
@@ -37,6 +38,9 @@ export class MedicalAssessmentService {
         assessment
       }
     });
+
+    await this.patientFilesService.update(createMedicalAssessmentDto.patientFile, { consultation_done: true });
+
 
 
     return assessment.save();

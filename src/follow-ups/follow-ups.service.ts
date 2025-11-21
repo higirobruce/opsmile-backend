@@ -4,15 +4,20 @@ import { UpdateFollowUpDto } from './dto/update-follow-up.dto';
 import { FollowUpRecord, FollowUpDocument } from './schemas/follow-ups.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import { PatientFilesService } from 'src/patient-files/patient-files.service';
 
 @Injectable()
 export class FollowUpsService {
 
   constructor(
-    @InjectModel(FollowUpRecord.name) private followUpRecordModel: Model<FollowUpDocument>
+    @InjectModel(FollowUpRecord.name) private followUpRecordModel: Model<FollowUpDocument>,
+     private patientFilesService: PatientFilesService
   ) { }
 
-  create(createFollowUpDto: CreateFollowUpDto) {
+  async create(createFollowUpDto: CreateFollowUpDto) {
+
+    await this.patientFilesService.update(createFollowUpDto.patientFile, { followUp_done: true });
+
     return this.followUpRecordModel.create(
       createFollowUpDto
     )

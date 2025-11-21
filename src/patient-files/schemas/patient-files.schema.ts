@@ -22,6 +22,28 @@ export class PatientFiles {
 
   @Prop({default: 'in vitals'})
   status: string;
+
+  @Prop({default: false})
+  vitals_taken: boolean
+
+  @Prop({default: false})
+  consultation_done: boolean
+
+  @Prop({default: false})
+  anesthesia_done: boolean
+
+  @Prop({default: false})
+  surgery_done: boolean
+
+  @Prop({default: false})
+  pacu_done: boolean
+
+  @Prop({default: false})
+  discharge_done: boolean
+
+  @Prop({default: false})
+  followUp_done: boolean
+
 }
 
 export const PatientFilesSchema = SchemaFactory.createForClass(PatientFiles);

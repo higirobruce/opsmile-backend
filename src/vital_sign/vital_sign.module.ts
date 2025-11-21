@@ -6,13 +6,15 @@ import { VitalSign, VitalSignSchema } from './schemas/vital_sign.schema';
 import { PatientsModule } from '../patients/patients.module';
 import { UsersModule } from '../users/users.module';
 import { ActivityLogModule } from 'src/activity-log/activity-log.module';
+import { PatientFilesModule } from 'src/patient-files/patient-files.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: VitalSign.name, schema: VitalSignSchema }]),
     PatientsModule,
     UsersModule,
-    ActivityLogModule
+    ActivityLogModule,
+    PatientFilesModule
   ],
   controllers: [VitalSignsController],
   providers: [VitalSignsService],

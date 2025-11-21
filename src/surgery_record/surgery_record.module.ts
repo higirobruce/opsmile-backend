@@ -7,6 +7,7 @@ import { PatientsModule } from 'src/patients/patients.module';
 import { UsersModule } from 'src/users/users.module';
 import { SurgeryRecordSchema } from './schemas/surgery_record.schema';
 import { ActivityLogModule } from 'src/activity-log/activity-log.module';
+import { PatientFilesModule } from 'src/patient-files/patient-files.module';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { ActivityLogModule } from 'src/activity-log/activity-log.module';
     ]),
     PatientsModule,
     UsersModule,
-    ActivityLogModule
+    ActivityLogModule,
+    PatientFilesModule
   ],
   controllers: [SurgeryRecordController],
   providers: [SurgeryRecordService],

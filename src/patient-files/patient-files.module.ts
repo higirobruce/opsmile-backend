@@ -13,5 +13,6 @@ import { PatientFiles, PatientFilesSchema } from './schemas/patient-files.schema
   ],
   controllers: [PatientFilesController],
   providers: [PatientFilesService],
+  exports: [PatientFilesService],
 })
 export class PatientFilesModule { }

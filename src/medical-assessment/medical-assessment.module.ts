@@ -8,6 +8,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MedicalAssessmentSchema } from './schemas/medical-assessment.schema';
 import { ActivityLogModule } from 'src/activity-log/activity-log.module';
 import { ProgramModule } from 'src/program/program.module';
+import { PatientFilesModule } from 'src/patient-files/patient-files.module';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { ProgramModule } from 'src/program/program.module';
     PatientsModule,
     UsersModule,
     ActivityLogModule,
-    ProgramModule
+    ProgramModule,
+    PatientFilesModule
   ],
   controllers: [MedicalAssessmentController],
   providers: [MedicalAssessmentService],

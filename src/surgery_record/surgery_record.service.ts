@@ -6,6 +6,7 @@ import { PatientsService } from '../patients/patients.service';
 import { UsersService } from '../users/users.service';
 import { SurgeryRecord, SurgeryRecordDocument } from './schemas/surgery_record.schema';
 import { ActivityLogService } from 'src/activity-log/activity-log.service';
+import { PatientFilesService } from 'src/patient-files/patient-files.service';
 
 @Injectable()
 export class SurgeryRecordService {
@@ -14,6 +15,7 @@ export class SurgeryRecordService {
     private patientsService: PatientsService,
     private usersService: UsersService,
     private activityLogService: ActivityLogService,
+    private patientFilesService: PatientFilesService
   ) {}
 
   async create(createSurgeryDto: CreateSurgeryRecordDto): Promise<SurgeryRecord> {
@@ -38,6 +40,8 @@ export class SurgeryRecordService {
         anesthesiologistId: anesthesiologist._id,
       }
     });
+
+    await this.patientFilesService.update(createSurgeryDto.patientFile, { surgery_done: true });
 
     return surgery.save();
   }

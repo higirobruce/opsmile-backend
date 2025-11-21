@@ -6,6 +6,7 @@ import { UsersService } from '../users/users.service';
 import { VitalSign, VitalSignDocument } from './schemas/vital_sign.schema';
 import { CreateVitalSignDto } from './dto/create-vital_sign.dto';
 import { ActivityLogService } from 'src/activity-log/activity-log.service';
+import { PatientFilesService } from 'src/patient-files/patient-files.service';
 
 @Injectable()
 export class VitalSignsService {
@@ -14,6 +15,7 @@ export class VitalSignsService {
     private patientsService: PatientsService,
     private usersService: UsersService,
     private activityLogService: ActivityLogService,
+    private patientFilesService: PatientFilesService,
   ) {}
 
   async create(createVitalSignDto: CreateVitalSignDto): Promise<VitalSign> {
@@ -43,6 +45,8 @@ export class VitalSignsService {
         }
       }
     });
+
+    await this.patientFilesService.update(createVitalSignDto.patientFile, { vitals_taken: true });
 
     return createdVitalSign.save();
   }
