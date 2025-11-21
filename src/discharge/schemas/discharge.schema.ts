@@ -20,14 +20,15 @@ export class Discharge {
   @Prop({ required: true })
   dischargeDate: Date;
 
-  @Prop({ required: true })
-  dischargeSummary: string;
 
   @Prop({ type: [String], default: [] })
   medicationsAtDischarge: string[];
 
   @Prop()
   followUpInstructions: string;
+
+  @Prop()
+  followUpAction: string;
 
   @Prop({ required: true })
   diagnosis: string;
@@ -40,6 +41,15 @@ export class Discharge {
 
   @Prop()
   reviewDate: Date;
+
+  @Prop()
+  reviewLocation: string;
+
+  @Prop()
+  referralDate: Date;
+
+  @Prop()
+  reeferralLocation: string;
 
   @Prop()
   isFollowUp: boolean;

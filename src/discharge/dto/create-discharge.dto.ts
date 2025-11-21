@@ -46,4 +46,18 @@ export class CreateDischargeDto {
 
   @IsNumber()
   followUpDuration: number
+
+  @IsString()
+  followUpAction: string;
+
+
+  @IsString()
+  reviewLocation: string;
+
+  @IsDate()
+  referralDate: Date;
+
+  @IsString()
+  reeferralLocation: string;
+
 }

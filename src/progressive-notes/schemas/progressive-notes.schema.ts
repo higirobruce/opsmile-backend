@@ -8,6 +8,9 @@ export type ProgressiveNotesDocument = ProgressiveNotes & Document;
 
 export enum ProgressiveNotesType {
     ANESTHESIA_NOTES = "ANESTHESIA_NOTES",
+    PRE_OP_NOTES = "PRE_OP_NOTES",
+    POST_OP_NOTES = "POST_OP_NOTES",
+    PACU_NOTES = "PACU_NOTES",
 }
 
 @Schema({ timestamps: true })
