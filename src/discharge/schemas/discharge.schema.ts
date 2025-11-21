@@ -20,6 +20,8 @@ export class Discharge {
   @Prop({ required: true })
   dischargeDate: Date;
 
+  @Prop()
+  dischargeSummary: string;
 
   @Prop({ type: [String], default: [] })
   medicationsAtDischarge: string[];
