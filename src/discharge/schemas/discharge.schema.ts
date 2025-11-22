@@ -17,7 +17,7 @@ export class Discharge {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
   doctor: User;
 
-  @Prop({ required: true })
+  @Prop()
   dischargeDate: Date;
 
   @Prop()
@@ -32,10 +32,10 @@ export class Discharge {
   @Prop()
   followUpAction: string;
 
-  @Prop({ required: true })
+  @Prop()
   diagnosis: string;
 
-  @Prop({ required: true })
+  @Prop()
   procedure: string;
 
   @Prop({ required: true })
@@ -51,7 +51,7 @@ export class Discharge {
   referralDate: Date;
 
   @Prop()
-  reeferralLocation: string;
+  referralLocation: string;
 
   @Prop()
   isFollowUp: boolean;

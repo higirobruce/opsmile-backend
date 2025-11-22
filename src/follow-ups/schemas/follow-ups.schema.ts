@@ -10,16 +10,20 @@ export type FollowUpDocument = FollowUpRecord & Document;
 export class FollowUpRecord {
 
     @Prop({ required: true })
-    recommendations: string;
+    nextStep: string;
 
-    @Prop({ required: true })
-    nextActions: string;
+    @Prop()
+    reviewOutcome: string;
 
-    @Prop({ required: true })
-    currentStatus: string;
+    @Prop()
+    callOutcome: string;
 
-    @Prop([{ type: Object }])
-    postOperativePictures: ImageFile[];
+    @Prop()
+    callDate: Date;
+
+    @Prop()
+    followUpDate: Date;
+
 
     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Patient', required: true })
     patient: Patient;

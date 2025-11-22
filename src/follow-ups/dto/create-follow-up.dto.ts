@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsArray, IsMongoId, IsOptional, IsString, ValidateNested } from "class-validator";
+import { IsArray, IsDate, IsMongoId, IsOptional, IsString, ValidateNested } from "class-validator";
 import { ImageFile } from "src/surgery_record/schemas/surgery_record.schema";
 
 class ImageFileDto {
@@ -16,18 +16,19 @@ class ImageFileDto {
 
 export class CreateFollowUpDto {
     @IsString()
-    recommendations: string;
+    nextStep: string;
 
     @IsString()
-    nextActions: string;
+    reviewOutcome: string;
 
     @IsString()
-    currentStatus: string;
+    callOutcome: string;
 
-    @IsArray()
-    @ValidateNested({ each: true })
-    @Type(() => ImageFileDto)
-    postOperativePictures: ImageFile[];
+    @IsDate()
+    callDate: Date;
+
+    @IsDate()
+    followUpDate: Date;
 
     @IsMongoId()
     patientId: string;

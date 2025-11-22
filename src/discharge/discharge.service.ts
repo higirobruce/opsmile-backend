@@ -20,6 +20,8 @@ export class DischargeService {
     const patient = await this.patientsService.findOne(createDischargeDto.patientId);
     const doctor = await this.usersService.findOne(createDischargeDto.doctorId);
 
+    console.log(patient)
+
     const createdDischarge = new this.dischargeModel({
       ...createDischargeDto,
       patient: patient._id,

@@ -58,6 +58,6 @@ export class CreateDischargeDto {
   referralDate: Date;
 
   @IsString()
-  reeferralLocation: string;
+  referralLocation: string;
 
 }
