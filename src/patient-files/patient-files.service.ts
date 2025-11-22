@@ -52,8 +52,16 @@ export class PatientFilesService {
         populate: [{ path: 'surgeon' }, { path: 'anesthesiologist' }],
         options: { sort: { createdAt: -1 } }, // 👈 populate the surgeon and anesthesiologist fields inside surgeries
       })
-      .populate('discharges')
-    // .exec()
+      .populate({
+        path: 'discharges',
+        populate: [{ path: 'doneBy', select: 'firstName lastName' }],
+        options: { sort: { createdAt: -1 } },
+      })
+      .populate({
+        path: 'notes',
+        populate: [{ path: 'doneBy', select: 'firstName lastName' }],
+        options: { sort: { createdAt: -1 } },
+      })
   }
 
   async findOne(id: string) {
@@ -99,8 +107,17 @@ export class PatientFilesService {
         populate: [{ path: 'surgeon' }, { path: 'anesthesiologist' }],
         options: { sort: { createdAt: -1 } }, // 👈 populate the surgeon and anesthesiologist fields inside surgeries
       })
-      .populate('discharges')
-      .populate('notes')
+
+      .populate({
+        path: 'discharges',
+        populate: [{ path: 'doctor', select: 'firstName lastName' }],
+        options: { sort: { createdAt: -1 } },
+      })
+      .populate({
+        path: 'notes',
+        populate: [{ path: 'doneBy', select: 'firstName lastName' }],
+        options: { sort: { createdAt: -1 } },
+      })
 
   }
 
@@ -147,8 +164,16 @@ export class PatientFilesService {
         populate: [{ path: 'surgeon' }, { path: 'anesthesiologist' }],
         options: { sort: { createdAt: -1 } }, // 👈 populate the surgeon and anesthesiologist fields inside surgeries
       })
-      .populate('discharges')
-      .populate('notes')
+      .populate({
+        path: 'discharges',
+        populate: [{ path: 'doctor', select: 'firstName lastName' }],
+        options: { sort: { createdAt: -1 } },
+      })
+      .populate({
+        path: 'notes',
+        populate: [{ path: 'doneBy', select: 'firstName lastName' }],
+        options: { sort: { createdAt: -1 } },
+      })
   }
 
   async findByPatientAndProgram(patient: string, program: string) {
@@ -186,8 +211,16 @@ export class PatientFilesService {
         populate: [{ path: 'surgeon' }, { path: 'anesthesiologist' }],
         options: { sort: { createdAt: -1 } }, // 👈 populate the surgeon and anesthesiologist fields inside surgeries
       })
-      .populate('discharges')
-      .populate('notes')
+      .populate({
+        path: 'discharges',
+        populate: [{ path: 'doctor', select: 'firstName lastName' }],
+        options: { sort: { createdAt: -1 } },
+      })
+      .populate({
+        path: 'notes',
+        populate: [{ path: 'doneBy', select: 'firstName lastName' }],
+        options: { sort: { createdAt: -1 } },
+      })
   }
 
 
