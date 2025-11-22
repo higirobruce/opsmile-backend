@@ -49,10 +49,10 @@ export class SurgeryRecord {
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
   anesthesiologist: User;
 
-  @Prop({ required: true })
+  @Prop()
   surgeryDate: Date;
 
-  @Prop({ required: true })
+  @Prop()
   surgeryEndDate: Date;
 
   @Prop({
