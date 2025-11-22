@@ -1,9 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { PatientFilesService } from './patient-files.service';
 import { CreatePatientFileDto } from './dto/create-patient-file.dto';
 import { UpdatePatientFileDto } from './dto/update-patient-file.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { UserRole } from 'src/users/schemas/user.schema';
+import { Roles } from 'src/auth/decorators/roles.decorator';
 
 @Controller('patient-files')
+@UseGuards(JwtAuthGuard)
 export class PatientFilesController {
   constructor(private readonly patientFilesService: PatientFilesService) { }
 

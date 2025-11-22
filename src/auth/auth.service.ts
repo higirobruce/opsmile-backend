@@ -35,14 +35,13 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException('Email not found!');
     }
-    console.log('User found:', user);
 
     const isPasswordValid = await bcrypt.compare(loginDto.password, user.password);
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const payload = { sub: user._id, email: user.email };
+    const payload = { sub: user._id, email: user.email, role: user.role };
     return {
       access_token: this.jwtService.sign(payload),
       user: {
@@ -50,6 +49,7 @@ export class AuthService {
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
+        role: user.role
       },
     };
   }

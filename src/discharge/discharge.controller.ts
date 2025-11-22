@@ -2,9 +2,13 @@ import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
 import { DischargeService } from './discharge.service';
 import { CreateDischargeDto } from './dto/create-discharge.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { UserRole } from 'src/users/schemas/user.schema';
+import { Roles } from 'src/auth/decorators/roles.decorator';
 
 @Controller('discharge')
-@UseGuards(AuthGuard('jwt'))  
+@UseGuards(JwtAuthGuard)
 export class DischargeController {
   constructor(private readonly dischargeService: DischargeService) {}
 
