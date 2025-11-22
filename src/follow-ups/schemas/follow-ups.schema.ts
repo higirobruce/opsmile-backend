@@ -9,7 +9,6 @@ export type FollowUpDocument = FollowUpRecord & Document;
 @Schema({ timestamps: true })
 export class FollowUpRecord {
 
-    @Prop({ required: true })
     nextStep: string;
 
     @Prop()
