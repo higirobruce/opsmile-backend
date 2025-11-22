@@ -86,5 +86,12 @@ PatientFilesSchema.virtual('discharges', {
   justOne: false
 });
 
+PatientFilesSchema.virtual('notes', {
+  ref: 'ProgressiveNotes',
+  localField: '_id',
+  foreignField: 'patientFile',
+  justOne: false
+});
+
 // Add compound index for search optimization
 // PatientFilesSchema.index({ patient: 'text', lastName: 'text', phoneNumber: 'text' });

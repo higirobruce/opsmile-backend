@@ -100,6 +100,7 @@ export class PatientFilesService {
         options: { sort: { createdAt: -1 } }, // 👈 populate the surgeon and anesthesiologist fields inside surgeries
       })
       .populate('discharges')
+      .populate('notes')
 
   }
 
@@ -147,6 +148,7 @@ export class PatientFilesService {
         options: { sort: { createdAt: -1 } }, // 👈 populate the surgeon and anesthesiologist fields inside surgeries
       })
       .populate('discharges')
+      .populate('notes')
   }
 
   async findByPatientAndProgram(patient: string, program: string) {
@@ -185,6 +187,7 @@ export class PatientFilesService {
         options: { sort: { createdAt: -1 } }, // 👈 populate the surgeon and anesthesiologist fields inside surgeries
       })
       .populate('discharges')
+      .populate('notes')
   }
 
 
