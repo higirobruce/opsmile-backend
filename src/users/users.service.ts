@@ -1,16 +1,18 @@
 // filepath: /Users/brucehigiro/Documents/development/cleft/backend/cleft-backend/src/users/users.service.ts
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import * as bcrypt from 'bcrypt';
 import { User, UserDocument, UserRole } from './schemas/user.schema';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>
-  ) {}
+  ) { }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     const createdUser = new this.userModel(createUserDto);
@@ -51,7 +53,7 @@ export class UsersService {
     const user = await this.userModel
       .findByIdAndUpdate(id, updateUserDto, { new: true })
       .exec();
-    
+
     if (!user) {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
@@ -59,6 +61,25 @@ export class UsersService {
     const userObject = user.toObject();
     delete userObject.password;
     return userObject;
+  }
+
+  async changePassword(id: string, changePasswordDto: ChangePasswordDto): Promise<{ message: string }> {
+    const user = await this.userModel.findById(id).select('+password').exec();
+    if (!user) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+    const salt = await bcrypt.genSalt(10);
+
+    const isPasswordValid = await bcrypt.compare(changePasswordDto.oldPassword, user.password);
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Invalid old password');
+    }
+
+    const hashedPassword = await bcrypt.hash(changePasswordDto.newPassword, salt);
+    user.password = changePasswordDto.newPassword;
+    await user.save();
+
+    return { message: 'Password changed successfully' };
   }
 
   async remove(id: string): Promise<{ message: string }> {
