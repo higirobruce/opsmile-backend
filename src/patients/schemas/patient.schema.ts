@@ -24,7 +24,7 @@ export class Patient {
   @Prop({ required: true })
   lastName: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop()
   phoneNumber: string;
 
   @Prop({ unique: true })
