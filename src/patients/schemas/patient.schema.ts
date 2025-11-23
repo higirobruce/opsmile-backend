@@ -39,19 +39,19 @@ export class Patient {
   @Prop()
   address: string;
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Village', required: true })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Village' })
   village: Village;
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Cell', required: true })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Cell' })
   cell: Cell;
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Sector', required: true })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Sector' })
   sector: Sector;
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'District', required: true })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'District' })
   district: District;
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Province', required: true })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Province' })
   province: Province;
 
   @Prop()
