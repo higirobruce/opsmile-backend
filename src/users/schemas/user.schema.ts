@@ -15,6 +15,7 @@ export enum UserRole {
   LAB_TECHNICIAN = 'lab_technician',
   COORDINATOR = 'coordinator',
   VOLUNTEER = 'volunteer',
+  MEDICAL_RECORD = 'medical_record',
   OTHER = 'other',
 }
 
