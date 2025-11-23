@@ -91,22 +91,23 @@ export class PatientsService {
   }
 
   async findOneByPhoneNumberOrName(search: string, currentPage: number, pageSize: number): Promise<{ patients: Patient[], totalPages: number, totalCount: number }> {
+    const searchRegex = new RegExp(search, 'i');
+
+    const searchConditions: any[] = [
+      { firstName: searchRegex },
+      { lastName: searchRegex },
+      { phoneNumber: searchRegex },
+      { $expr: { $regexMatch: { input: { $toString: "$registrationNumber" }, regex: searchRegex } } }
+    ];
+
     const totalPatients = await this.patientModel.countDocuments({
-      $or: [
-        { firstName: new RegExp(search, 'i') },
-        { lastName: new RegExp(search, 'i') },
-        { phoneNumber: new RegExp(search, 'i') },
-      ],
+      $or: searchConditions,
     }).exec();
     const totalPages = Math.ceil(totalPatients / pageSize);
 
     const patients = await this.patientModel
       .find({
-        $or: [
-          { firstName: new RegExp(search, 'i') },
-          { lastName: new RegExp(search, 'i') },
-          { phoneNumber: new RegExp(search, 'i') },
-        ],
+        $or: searchConditions,
       })
       .sort({ createdAt: -1 })
       .populate({
