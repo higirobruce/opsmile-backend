@@ -47,10 +47,9 @@ export class PatientsService {
     const patients = await this.patientModel
       .find()
       .populate('patient_files')
-
-      .sort({ createdAt: -1 })
-      .skip((currentPage - 1) * pageSize)
-      .limit(pageSize)
+      // .sort({ createdAt: -1 })
+      // .skip((currentPage - 1) * pageSize)
+      // .limit(pageSize)
       .exec();
 
     return {
