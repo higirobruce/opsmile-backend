@@ -9,7 +9,6 @@ import { Province } from 'src/provinces/schemas/province.schema';
 import { PatientFiles } from 'src/patient-files/schemas/patient-files.schema';
 
 export type PatientDocument = Patient & Document;
-
 @Schema({
   timestamps: true,
   toJSON: { virtuals: true },
