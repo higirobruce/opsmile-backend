@@ -16,6 +16,12 @@ export enum UserRole {
   COORDINATOR = 'coordinator',
   VOLUNTEER = 'volunteer',
   MEDICAL_RECORD = 'medical_record',
+  RESIDENT='resident',
+  PRE_OP_NURSE='pre_op_nurse',
+  POST_OP_NURSE='post_op_nurse',
+  PACU_NURSE='pacu_nurse',
+  NPA='npa',
+  REGISTRATION='registration',
   OTHER = 'other',
 }
 
